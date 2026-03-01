@@ -1,0 +1,1137 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maheza Daud | The Renaissance Engineer</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Imperial+Script&family=Inter:wght@300;400;500;600;700&family=Quicksand:wght@400;700&family=Space+Mono:wght@400;700&family=Playball&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Mea+Culpa&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #050505;
+        color: #ffffff;
+        font-family: "Inter", sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* STICKY SIDEBAR */
+      .sidebar {
+        position: fixed;
+        left: 2vw;
+        bottom: 5vh;
+        z-index: 50;
+        mix-blend-mode: difference;
+      }
+      .sidebar ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .sidebar a {
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        width: 150px;
+        transition: all 0.3s ease;
+        text-transform: capitalize;
+      }
+      .sidebar a:hover,
+      .sidebar li.active a {
+        color: #ffffff;
+      }
+
+      /* CANVAS CONTAINER */
+      .scroll-section {
+        position: relative;
+        height: 300vh;
+      }
+      .video-container {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      /* CANVAS STYLING & WATERMARK REMOVAL (Jalur Ninja) */
+      canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+        filter: brightness(0.8);
+        transform: scale(
+          1.03
+        ); /* Memotong pinggiran sedikit untuk menyembunyikan watermark */
+      }
+
+      /* TEKS OVERLAY */
+      .content-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        padding: 10vh 15vw;
+      }
+      .text-block {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .text-block:nth-child(2) {
+        justify-content: flex-end;
+        padding-bottom: 20vh;
+      }
+      h1,
+      h2 {
+        font-family: "Cinzel", serif;
+        font-size: 5rem;
+        text-transform: uppercase;
+        line-height: 1.1;
+        letter-spacing: -2px;
+      }
+      p {
+        font-size: 1.5rem;
+        max-width: 600px;
+        margin-top: 20px;
+        font-weight: 300;
+        line-height: 1.6;
+      }
+      /* =========================================
+         PANEL KONTROL TYPOGRAPHY PORTFOLIO
+         Silakan ubah angka-angka di bawah ini untuk presisi!
+         ========================================= */
+      .hero-typo-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        height: 350px;
+        margin: 0 auto;
+        user-select: none;
+      }
+
+      /* KONTROL HURUF "P" RAKSASA (Mea Culpa) */
+      .typo-p {
+        position: absolute;
+        font-family: "Mea Culpa", cursive;
+        /* Urutan ukuran: clamp(Ukuran HP, Ukuran Dinamis, Ukuran Laptop) */
+        font-size: clamp(10rem, 20vw, 20rem);
+        color: #e40a3e;
+
+        /* POSISI P */
+        left: -9%; /* Makin minus = makin geser ke kiri */
+        top: -20%; /* Makin minus = makin ditarik ke atas */
+
+        z-index: 10;
+        line-height: 1;
+        text-shadow: 0 0 30px rgba(228, 10, 62, 0.2);
+      }
+
+      /* KONTROL TEKS "ORT" (Playfair) */
+      .typo-ort {
+        position: absolute;
+        font-family: "Playfair Display", serif;
+        font-size: clamp(6rem, 15vw, 11rem);
+        color: #e40a3e;
+
+        /* POSISI ORT */
+        left: 25%; /* Atur seberapa jauh dari pinggir kiri */
+        top: 12%; /* Atur seberapa turun dari atap */
+        font-style: italic;
+        z-index: 5;
+        line-height: 1;
+        letter-spacing: -10px; /* Atur kerenggangan antar huruf O-R-T */
+      }
+
+      /* KONTROL TEKS "DISEÑO GRÁFICO" */
+      .typo-subtitle {
+        position: absolute;
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+        color: #fffbef;
+
+        /* POSISI DISEÑO GRÁFICO */
+        left: 5%; /* Geser kiri-kanan */
+        bottom: 28%; /* Geser atas-bawah */
+
+        z-index: 15;
+        font-style: italic;
+        letter-spacing: 2px;
+      }
+
+      /* KONTROL TEKS "2025" */
+      .typo-year {
+        position: absolute;
+        font-family: "Inter", sans-serif;
+        font-size: clamp(1.5rem, 3vw, 2.2rem);
+        color: #b30831;
+
+        /* POSISI 2025 */
+        right: 23%; /* Atur jarak dari pinggir kanan */
+        top: 48%; /* Atur turun/naiknya */
+
+        z-index: 5;
+        font-weight: 300;
+        letter-spacing: 2px;
+      }
+
+      /* KONTROL TEKS "FOLI" (Playfair) */
+      .typo-folio {
+        position: absolute;
+        font-family: "Playfair Display", serif;
+        font-size: clamp(6rem, 15vw, 11rem);
+        color: #e40a3e;
+
+        /* POSISI SELURUH KELOMPOK (FOLI + O + Bintang) */
+        right: -6%; /* Geser kiri-kanan untuk sekelompok teks ini */
+        bottom: -2%; /* Geser atas-bawah */
+        font-style: italic;
+        z-index: 6;
+        line-height: 1;
+        letter-spacing: -10px; /* Kerenggangan F-O-L-I */
+
+        /* Trik agar huruf Playfair dan Mea Culpa duduk sejajar di garis bawah */
+        display: flex;
+        align-items: flex-end;
+      }
+
+      /* KONTROL KHUSUS HURUF "O" TERAKHIR (Mea Culpa) */
+      .typo-o-last {
+        font-family: "Mea Culpa", cursive;
+
+        /* Atur seberapa raksasa huruf O dibanding FOLI. (1.6em = 1.6x lebih besar) */
+        font-size: 1.2em;
+
+        /* Atur tinggi rendahnya huruf O. Ubah dari 0.65 ke angka lain agar O duduk pas sejajar dengan huruf I */
+        line-height: 0.65;
+
+        /* Atur jarak tempel antara huruf 'I' dan huruf 'O' */
+        margin-left: 0px;
+
+        position: relative;
+      }
+
+      /* KONTROL BINTANG KILAU ✨ */
+      .typo-sparkle {
+        position: absolute;
+        font-size: clamp(1rem, 2.5vw, 1.8rem);
+        color: #ffffff;
+        font-family: sans-serif;
+
+        /* POSISI BINTANG (Relatif terhadap ekor huruf O) */
+        top: 20%; /* Ubah angka ini untuk menaik/turunkan bintang */
+        right: -15%; /* Ubah angka ini untuk menggeser bintang ke ujung ekor O */
+      }
+      /* === STYLING 3 PILAR KOMPETENSI === */
+      .hero-statements {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 1000px;
+        z-index: 3;
+        text-align: center;
+        pointer-events: none; /* Agar tidak memblokir klik/scroll */
+      }
+
+      .statement-wrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        font-family: "Inter", sans-serif;
+        font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+        font-weight: 300;
+        line-height: 1.4;
+        opacity: 0; /* Awalnya disembunyikan oleh GSAP */
+      }
+
+      /* Teks Latar (Transparan) */
+      .statement-ghost {
+        color: rgba(255, 255, 255, 0.15);
+      }
+      .statement-ghost .highlight {
+        color: rgba(228, 10, 62, 0.2); /* Merah transparan */
+        font-weight: 600;
+      }
+
+      /* Teks Depan (Warna Solid yang akan mengisi) */
+      .statement-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        color: #ffffff;
+        /* Disembunyikan di sisi paling kiri menggunakan clip-path */
+        clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+      }
+      .statement-fill .highlight {
+        color: #e40a3e; /* Merah solid murni */
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="sidebar">
+      <ul>
+        <li>
+          <a href="#hero-section"
+            ><span class="nav-text">The Awakening</span>
+            <span class="nav-num">I</span></a
+          >
+        </li>
+        <li>
+          <a href="#duality-section"
+            ><span class="nav-text">The Duality</span>
+            <span class="nav-num">II</span></a
+          >
+        </li>
+        <li>
+          <a href="#museum-section"
+            ><span class="nav-text">SaaS ISP</span>
+            <span class="nav-num">III</span></a
+          >
+        </li>
+        <li>
+          <a href="#vangogh-section"
+            ><span class="nav-text">Bantu-In</span>
+            <span class="nav-num">IV</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <section id="hero-sequence" style="width: 100%; background: #050505">
+      <div
+        id="hero-pin-target"
+        style="width: 100%; height: 100vh; position: relative; overflow: hidden"
+      >
+        <canvas
+          id="hero-canvas"
+          style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+          "
+        ></canvas>
+        <div
+          id="hero-text"
+          class="content-overlay"
+          style="z-index: 2; justify-content: center; align-items: center"
+        >
+          <div class="hero-typo-wrapper">
+            <span class="typo-p">P</span>
+            <span class="typo-ort">ORT</span>
+            <span class="typo-subtitle">SOFTWARE ENGINEER</span>
+            <span class="typo-year">2025</span>
+            <span class="typo-folio">
+              FOLI<span class="typo-o-last">O</span>
+              <span class="typo-sparkle"></span>
+            </span>
+          </div>
+        </div>
+        <div
+          id="hero-text-1"
+          class="content-overlay"
+          style="
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            padding-left: calc(2vw + 150px + 40px);
+            padding-right: 5vw;
+          "
+        >
+          <p
+            style="
+              font-family: &quot;Inter&quot;, sans-serif;
+              font-size: 1.8rem;
+              color: #e0e0e0;
+              max-width: 700px;
+              font-weight: 500;
+              text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9);
+              line-height: 1.6;
+            "
+          >
+            <span
+              style="
+                font-family: &quot;Mea Culpa&quot;, cursive;
+                font-size: 3.8rem;
+                font-weight: 400;
+                position: relative;
+                top: -5px;
+                line-height: 0;
+                padding-right: 2px;
+                color: #ffffff;
+              "
+              >B</span
+            >erfokus pada pengembangan
+            <span style="color: #e40a3e; font-weight: 700">Full-Stack</span>
+            untuk menciptakan ekosistem perangkat lunak skala penuh.
+          </p>
+        </div>
+
+        <div
+          id="hero-text-2"
+          class="content-overlay"
+          style="
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            padding-left: calc(2vw + 150px + 40px);
+            padding-right: 5vw;
+          "
+        >
+          <p
+            style="
+              font-family: &quot;Inter&quot;, sans-serif;
+              font-size: 1.8rem;
+              color: #e0e0e0;
+              max-width: 700px;
+              font-weight: 500;
+              text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9);
+              line-height: 1.6;
+            "
+          >
+            <span
+              style="
+                font-family: &quot;Mea Culpa&quot;, cursive;
+                font-size: 3.8rem;
+                font-weight: 400;
+                position: relative;
+                top: -5px;
+                line-height: 0;
+                padding-right: 2px;
+                color: #ffffff;
+              "
+              >M</span
+            >emastikan aksesibilitas dan kemudahan penggunaan melalui
+            perancangan
+            <span style="color: #e40a3e; font-weight: 700">UI/UX</span> yang
+            presisi.
+          </p>
+        </div>
+
+        <div
+          id="hero-text-3"
+          class="content-overlay"
+          style="
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            padding-left: calc(2vw + 150px + 40px);
+            padding-right: 5vw;
+          "
+        >
+          <p
+            style="
+              font-family: &quot;Inter&quot;, sans-serif;
+              font-size: 1.8rem;
+              color: #e0e0e0;
+              max-width: 700px;
+              font-weight: 500;
+              /* text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9); */
+              line-height: 1.6;
+            "
+          >
+            <span
+              style="
+                font-family: &quot;Mea Culpa&quot;, cursive;
+                font-size: 3.8rem;
+                font-weight: 400;
+                position: relative;
+                top: -5px;
+                line-height: 0;
+                padding-right: 2px;
+                color: #ffffff;
+              "
+              >M</span
+            >eningkatkan otomatisasi dan efisiensi produk dengan
+            mengintegrasikan kapabilitas
+            <span style="color: #e40a3e; font-weight: 700"
+              >Generative AI (Gen AI)</span
+            >.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="duality-scrapbook-sequence"
+      style="width: 100%; background: #050505"
+    >
+      <div
+        id="duality-pin-target"
+        style="width: 100%; height: 100vh; position: relative; overflow: hidden"
+      >
+        <canvas
+          id="duality-canvas"
+          style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+          "
+        ></canvas>
+
+        <div
+          id="duality-text-layer"
+          class="content-overlay"
+          style="
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            padding-left: calc(2vw + 150px + 40px);
+            padding-right: 5vw;
+          "
+        >
+          <h2
+            style="
+              font-family: &quot;Cinzel&quot;, serif;
+              font-size: 8vw;
+              font-weight: 800;
+              letter-spacing: -3px;
+              line-height: 1;
+              color: #ffffff;
+              text-shadow: 0px 10px 40px rgba(0, 0, 0, 0.8);
+              margin-bottom: 20px;
+            "
+          >
+            The Architect
+          </h2>
+          <p
+            style="
+              font-family: &quot;Inter&quot;, sans-serif;
+              font-size: 1.8rem;
+              color: #e0e0e0;
+              max-width: 700px;
+              font-weight: 500;
+              text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9);
+              line-height: 1.6;
+            "
+          >
+            <span
+              style="
+                font-family: &quot;Mea Culpa&quot;, cursive;
+                font-size: 3.8rem;
+                font-weight: 400;
+                position: relative;
+                top: -5px;
+                line-height: 0;
+                padding-right: 2px;
+                color: #ffffff;
+              "
+              >D</span
+            >i balik barisan kode dan kanvas visual, ada seseorang yang
+            merangkai logika menjadi estetika. Mari melangkah masuk dan kenali
+            saya lebih dekat.
+          </p>
+        </div>
+
+        <div
+          id="scrapbook-panel"
+          style="
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 2600px;
+            z-index: 10;
+          "
+        >
+          <iframe
+            src="scrapbook.html"
+            style="width: 100%; height: 100%; border: none"
+            scrolling="no"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="scroll-section" id="museum-section">
+      <div class="video-container">
+        <canvas id="museum-canvas"></canvas>
+      </div>
+      <div class="content-overlay">
+        <div class="text-block">
+          <!-- <h2>SaaS ISP</h2>
+          <p>
+            Arsitektur jaringan dan cloud infrastructure yang diibaratkan
+            seperti mahakarya seni klasik.
+          </p> -->
+        </div>
+      </div>
+    </section>
+
+    <section id="vangogh-sequence" style="width: 100%; background: #050505">
+      <div
+        id="vangogh-pin-target"
+        style="width: 100%; height: 100vh; position: relative; overflow: hidden"
+      >
+        <canvas
+          id="vangogh-canvas"
+          style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+          "
+        ></canvas>
+
+        <div
+          id="vangogh-content-wrapper"
+          style="
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+          "
+        >
+          <div
+            class="text-section"
+            style="
+              width: 100%;
+              min-height: 100vh;
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-end;
+              align-items: flex-start;
+              /* FAKTA MATEMATIS: 2vw (jarak nav) + 150px (lebar nav) + 40px (jarak aman) */
+              padding-left: calc(2vw + 150px + 40px);
+              padding-right: 5vw;
+              padding-bottom: 5vh;
+            "
+          >
+            <h2
+              style="
+                font-family: &quot;Inter&quot;, sans-serif;
+                font-size: 12vw;
+                font-weight: 800;
+                letter-spacing: -3px;
+                line-height: 1;
+                color: #ffffff;
+                text-transform: capitalize;
+                margin: 0 0 15px 0;
+                text-shadow: 0px 10px 40px rgba(0, 0, 0, 0.8);
+              "
+            >
+              Bantu-In
+            </h2>
+            <p
+              style="
+                font-family: &quot;Inter&quot;, sans-serif;
+                font-size: 1.8rem;
+                color: #e0e0e0;
+                max-width: 800px;
+                font-weight: 500;
+                text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9);
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;Mea Culpa&quot;, cursive;
+                  font-size: 3.8rem;
+                  font-weight: 400;
+                  position: relative;
+                  top: -5px;
+                  line-height: 0;
+                  padding-right: 2px;
+                  color: #ffffff;
+                "
+                >P</span
+              >latform layanan dinamis yang hidup dan terus bergerak, seperti
+              sapuan kuas kanvas yang bernapas.
+            </p>
+          </div>
+
+          <div
+            class="image-section"
+            style="
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-end;
+              /* Sejajar dengan teks di kiri */
+              padding-left: calc(2vw + 150px + 40px);
+              /* MENTOK KANAN: Padding kanan dibunuh menjadi 0 */
+              padding-right: 2vw;
+              padding-bottom: 20vh;
+              gap: 40px;
+            "
+          >
+            <img
+              src="bantu-in-slide-1.webp"
+              alt="Presentasi Bantu-In 1"
+              style="
+                width: 100%;
+                border-radius: 0px 0 0 0px;
+                box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
+              "
+            />
+            <img
+              src="bantu-in-slide-2.webp"
+              alt="Presentasi Bantu-In 2"
+              style="
+                width: 100%;
+                border-radius: 0px 0 0 0px;
+                box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
+              "
+            />
+            <img
+              src="bantu-in-slide-3.webp"
+              alt="Presentasi Bantu-In 2"
+              style="
+                width: 100%;
+                border-radius: 0px 0 0 0px;
+                box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
+              "
+            />
+            <img
+              src="bantu-in-slide-4.webp"
+              alt="Presentasi Bantu-In 2"
+              style="
+                width: 100%;
+                border-radius: 0px 0 0 0px;
+                box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
+              "
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+      const lenis = new Lenis({ duration: 1.2, smooth: true });
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+      gsap.registerPlugin(ScrollTrigger);
+
+      // FUNGSI KHUSUS SEQUENCE VANGOGH -> TEKS -> GAMBAR
+      function setupVangoghSequence() {
+        const canvas = document.getElementById("vangogh-canvas");
+        if (!canvas) return;
+        const context = canvas.getContext("2d");
+        const frameCount = 240; // Pastikan jumlah frame akurat
+        const images = [];
+        const canvasObj = { frame: 0 };
+
+        for (let i = 0; i < frameCount; i++) {
+          const img = new Image();
+          img.src = `./vangogh-frames/frame_${(i + 1).toString().padStart(3, "0")}.webp`;
+          images.push(img);
+        }
+
+        function render() {
+          const img = images[canvasObj.frame];
+          if (!img || !img.complete) return;
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          const ratio = Math.max(
+            canvas.width / img.width,
+            canvas.height / img.height,
+          );
+          const centerShift_x = (canvas.width - img.width * ratio) / 2;
+          const centerShift_y = (canvas.height - img.height * ratio) / 2;
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          context.drawImage(
+            img,
+            0,
+            0,
+            img.width,
+            img.height,
+            centerShift_x,
+            centerShift_y,
+            img.width * ratio,
+            img.height * ratio,
+          );
+        }
+
+        images[0].onload = render;
+        window.addEventListener("resize", render);
+
+        let tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: "#vangogh-pin-target",
+            start: "top top",
+            // Anda bisa mengurangi angka ini (misal +=4000) jika dirasa
+            // panjang scroll-nya sekarang menjadi terlalu lama/jauh
+            end: "+=6000",
+            pin: true,
+            scrub: true,
+          },
+        });
+
+        // FASE 1: Kanvas Van Gogh berputar
+        // Dimulai di detik 0
+        tl.to(
+          canvasObj,
+          {
+            frame: frameCount - 1,
+            snap: "frame",
+            ease: "none",
+            duration: 2,
+            onUpdate: render,
+          },
+          0,
+        );
+
+        // FASE 2: Wadah teks dan gambar langsung meluncur naik
+        // PERBAIKAN MUTLAK: Angka di paling akhir diubah menjadi 0 agar
+        // ditarik naik sejak sentuhan scroll pertama Anda.
+        tl.to(
+          "#vangogh-content-wrapper",
+          { yPercent: -100, ease: "none", duration: 2 },
+          0,
+        );
+      }
+
+      // FUNGSI UMUM UNTUK KANVAS DUALITY, MUSEUM, VANGOGH
+      function setupCanvasScrubbing(
+        canvasId,
+        sectionId,
+        imagePathFunc,
+        frameCount,
+      ) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        const context = canvas.getContext("2d");
+        const images = [];
+        const canvasObj = { frame: 0 };
+
+        for (let i = 0; i < frameCount; i++) {
+          const img = new Image();
+          img.src = imagePathFunc(i);
+          images.push(img);
+        }
+
+        function render() {
+          const img = images[canvasObj.frame];
+          if (!img || !img.complete) return;
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          const ratio = Math.max(
+            canvas.width / img.width,
+            canvas.height / img.height,
+          );
+          const centerShift_x = (canvas.width - img.width * ratio) / 2;
+          const centerShift_y = (canvas.height - img.height * ratio) / 2;
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          context.drawImage(
+            img,
+            0,
+            0,
+            img.width,
+            img.height,
+            centerShift_x,
+            centerShift_y,
+            img.width * ratio,
+            img.height * ratio,
+          );
+        }
+        images[0].onload = render;
+        window.addEventListener("resize", render);
+
+        gsap.to(canvasObj, {
+          frame: frameCount - 1,
+          snap: "frame",
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionId,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true,
+          },
+          onUpdate: render,
+        });
+      }
+
+      // FUNGSI LOGIKA SPESIFIK (PATUNG -> BERHENTI -> SCRAPBOOK NAIK -> SEMUA NAIK)
+      // FUNGSI 1: HERO NORMAL
+      function setupHeroSequence() {
+        const canvas = document.getElementById("hero-canvas");
+        if (!canvas) return;
+        const context = canvas.getContext("2d");
+        const frameCount = 240;
+        const images = [];
+        const canvasObj = { frame: 0 };
+
+        for (let i = 0; i < frameCount; i++) {
+          const img = new Image();
+          img.src = `./david-frames/frame_${(i + 1).toString().padStart(3, "0")}.webp`;
+          images.push(img);
+        }
+
+        function render() {
+          const img = images[canvasObj.frame];
+          if (!img || !img.complete) return;
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          const ratio = Math.max(
+            canvas.width / img.width,
+            canvas.height / img.height,
+          );
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          context.drawImage(
+            img,
+            0,
+            0,
+            img.width,
+            img.height,
+            (canvas.width - img.width * ratio) / 2,
+            (canvas.height - img.height * ratio) / 2,
+            img.width * ratio,
+            img.height * ratio,
+          );
+        }
+        images[0].onload = render;
+        window.addEventListener("resize", render);
+
+        let tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: "#hero-pin-target",
+            start: "top top",
+            end: "+=4000", // Lintasan scroll diperpanjang agar tidak tumpang tindih
+            pin: true,
+            scrub: true,
+          },
+        });
+
+        // 1. Kanvas Patung David berputar sepanjang durasi total (4)
+        tl.to(
+          canvasObj,
+          {
+            frame: frameCount - 1,
+            snap: "frame",
+            ease: "none",
+            duration: 4,
+            onUpdate: render,
+          },
+          0,
+        );
+
+        // 2. Tarik Teks PORTFOLIO raksasa ke atas sampai hilang (top: -100%)
+        // Harus menggunakan "top" bukan "y" agar konsisten dengan cara kerja Duality
+        tl.to("#hero-text", { top: "-100%", ease: "none", duration: 1 }, 0);
+
+        // 3. Tarik Kalimat 1 dari bawah ke atas
+        tl.to(
+          "#hero-text-1",
+          { top: "-100%", ease: "none", duration: 1.5 },
+          0.5,
+        );
+
+        // 4. Tarik Kalimat 2 dari bawah ke atas
+        tl.to(
+          "#hero-text-2",
+          { top: "-100%", ease: "none", duration: 1.5 },
+          1.5,
+        );
+
+        // 5. Tarik Kalimat 3 dari bawah ke atas
+        tl.to(
+          "#hero-text-3",
+          { top: "-100%", ease: "none", duration: 1.5 },
+          2.5,
+        );
+      }
+
+      // FUNGSI 2: DUALITY + SCRAPBOOK
+      function setupDualityScrapbook() {
+        const canvas = document.getElementById("duality-canvas");
+        if (!canvas) return;
+        const context = canvas.getContext("2d");
+        const frameCount = 150; // Pastikan sesuai dengan jumlah frame duality Anda
+        const images = [];
+        const canvasObj = { frame: 0 };
+
+        for (let i = 0; i < frameCount; i++) {
+          const img = new Image();
+          img.src = `./duality-frames/frame_${(i + 1).toString().padStart(3, "0")}.webp`;
+          images.push(img);
+        }
+
+        function render() {
+          const img = images[canvasObj.frame];
+          if (!img || !img.complete) return;
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          const ratio = Math.max(
+            canvas.width / img.width,
+            canvas.height / img.height,
+          );
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          context.drawImage(
+            img,
+            0,
+            0,
+            img.width,
+            img.height,
+            (canvas.width - img.width * ratio) / 2,
+            (canvas.height - img.height * ratio) / 2,
+            img.width * ratio,
+            img.height * ratio,
+          );
+        }
+        images[0].onload = render;
+        window.addEventListener("resize", render);
+
+        const scrapbookPanel = document.getElementById("scrapbook-panel");
+
+        let tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: "#duality-pin-target",
+            start: "top top",
+            end: "+=5000",
+            pin: true,
+            scrub: true,
+          },
+        });
+
+        // FASE 1: Kanvas Duality berputar (Durasi 2)
+        // Dimulai di detik 0 (Scroll pertama)
+        tl.to(
+          canvasObj,
+          {
+            frame: frameCount - 1,
+            snap: "frame",
+            ease: "none",
+            duration: 2,
+            onUpdate: render,
+          },
+          0,
+        );
+
+        // FASE 2: Teks ditarik naik dari dasar layar sampai HILANG TEMBUS KE ATAS (-100%)
+        // Dimulai di detik 0, jadi teks langsung bergerak saat Anda baru mulai scroll
+        tl.to(
+          "#duality-text-layer",
+          { top: "-100%", ease: "none", duration: 2 },
+          0,
+        );
+
+        // FASE 3: Scrapbook meluncur naik membuntuti teks
+        // Dimulai di detik 0.8 agar rapat di bawah teks tanpa menabraknya
+        tl.to(
+          scrapbookPanel,
+          { y: () => -scrapbookPanel.offsetHeight, ease: "none", duration: 3 },
+          0.8,
+        );
+      }
+
+      // EKSEKUSI SEMUA FUNGSI
+
+      // setupCanvasScrubbing(
+      //   "duality-canvas",
+      //   "#duality-section",
+      //   (index) =>
+      //     `./duality-frames/frame_${(index + 1).toString().padStart(3, "0")}.webp`,
+      //   150,
+      // );
+
+      setupHeroSequence();
+
+      // 2. Jalankan Duality & Tarik Scrapbook
+      setupDualityScrapbook();
+
+      setupCanvasScrubbing(
+        "museum-canvas",
+        "#museum-section",
+        (index) =>
+          `./museum-frames/frame_${(index + 1).toString().padStart(3, "0")}.webp`,
+        240,
+      );
+      // Jalankan fungsinya
+      setupVangoghSequence();
+
+      // setupCanvasScrubbing(
+      //   "vangogh-canvas",
+      //   "#vangogh-section",
+      //   (index) =>
+      //     `./vangogh-frames/frame_${(index + 1).toString().padStart(3, "0")}.webp`,
+      //   240,
+      // );
+    </script>
+  </body>
+</html>
