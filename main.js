@@ -23,29 +23,12 @@ function setupVangoghSequence() {
   const canvasObj = { frame: 0 };
 
   const firstImg = new Image();
-  firstImg.src = `./vangogh-frames/frame_001.webp`;
+  firstImg.src = `./vangogh-compressed/frame_001.webp`;
   images[0] = firstImg;
 
   firstImg.onload = () => {
     render();
   };
-
-  function loadVangogh() {
-    let f = 1;
-    const speed = 5;
-    function innerLoad() {
-      if (f >= frameCount) return;
-      const idx = f++;
-      const img = new Image();
-      img.src = `./vangogh-frames/frame_${(idx + 1).toString().padStart(3, "0")}.webp`;
-      img.onload = () => {
-        images[idx] = img;
-        innerLoad();
-      };
-      img.onerror = () => innerLoad();
-    }
-    for (let i = 0; i < speed; i++) innerLoad();
-  }
 
   let isLoaded = false;
   const targetElement = document.getElementById("vangogh-pin-target");
@@ -53,7 +36,22 @@ function setupVangoghSequence() {
     (entries) => {
       if (entries[0].isIntersecting && !isLoaded) {
         isLoaded = true;
-        loadVangogh();
+        // Di dalam IntersectionObserver Vangogh:
+        let f = 1;
+        const speed = 5;
+
+        function loadVangogh() {
+          if (f >= frameCount) return;
+          const idx = f++;
+          const img = new Image();
+          img.src = `./vangogh-compressed/frame_${(idx + 1).toString().padStart(3, "0")}.webp`;
+          img.onload = () => {
+            images[idx] = img;
+            loadVangogh();
+          };
+          img.onerror = () => loadVangogh();
+        }
+        for (let i = 0; i < speed; i++) loadVangogh();
         observer.disconnect();
       }
     },
@@ -61,16 +59,6 @@ function setupVangoghSequence() {
   );
 
   if (targetElement) observer.observe(targetElement);
-
-  // NOMOR 3: Memory Management Vangogh (Hapus saat ke atas jauh)
-  ScrollTrigger.create({
-    trigger: "#vangogh-pin-target",
-    start: "top bottom",
-    onLeaveBack: () => {
-      images.length = 0; // Bersihkan RAM
-      isLoaded = false; // Izinkan muat ulang jika balik lagi
-    },
-  });
 
   function render() {
     const targetFrame = Math.round(canvasObj.frame);
@@ -138,50 +126,70 @@ function setupCanvasScrubbing(canvasId, sectionId, imagePathFunc, frameCount) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
   const context = canvas.getContext("2d");
-  const images = [];
+  const images = []; // Array untuk menampung objek Image
   const canvasObj = { frame: 0 };
 
+  // 1. Muat Frame Pertama sebagai Anchor
   const firstImg = new Image();
   firstImg.src = imagePathFunc(0);
   images[0] = firstImg;
+
   firstImg.onload = () => {
     render();
   };
 
-  function loadMuseum() {
-    let f = 1;
-    const workers = 5;
-    function innerLoad() {
-      if (f >= frameCount) return;
-      const index = f++;
-      const img = new Image();
-      img.src = imagePathFunc(index);
-      img.onload = () => {
-        images[index] = img;
-        innerLoad();
-      };
-      img.onerror = () => innerLoad();
-    }
-    for (let i = 0; i < workers; i++) innerLoad();
-  }
-
+  // 2. Observer dengan Sequential Loading (Anti-DDoS Jaringan)
   let isLoaded = false;
   const targetElement = document.querySelector(sectionId);
   const observer = new IntersectionObserver(
     (entries) => {
       if (entries[0].isIntersecting && !isLoaded) {
         isLoaded = true;
-        loadMuseum();
+        // Di dalam IntersectionObserver Museum:
+        let f = 1;
+        const workers = 5;
+
+        function loadMuseum() {
+          if (f >= frameCount) return;
+          const index = f++;
+          const img = new Image();
+          img.src = imagePathFunc(index);
+          img.onload = () => {
+            images[index] = img;
+            loadMuseum();
+          };
+          img.onerror = () => loadMuseum();
+        }
+        for (let i = 0; i < workers; i++) loadMuseum();
+
+        function loadSequentially() {
+          if (f >= frameCount) return;
+          const img = new Image();
+          img.src = imagePathFunc(f);
+          img.onload = () => {
+            images[f] = img; // Simpan di indeks yang tepat
+            f++;
+            loadSequentially(); // Lanjut ke frame berikutnya
+          };
+          img.onerror = () => {
+            f++;
+            loadSequentially();
+          };
+        }
+        loadSequentially();
         observer.disconnect();
       }
     },
-    { rootMargin: "800px 0px" },
+    { rootMargin: "800px 0px" }, // Disesuaikan agar tidak terlalu agresif
   );
 
   if (targetElement) observer.observe(targetElement);
 
+  // 3. Render Engine dengan Fallback Frame (Anti-Layar Hitam)
   function render() {
     const targetFrame = Math.round(canvasObj.frame);
+
+    // Cari frame terakhir yang benar-benar sudah selesai didownload
     let bestFrame = targetFrame;
     while (
       bestFrame >= 0 &&
@@ -189,7 +197,9 @@ function setupCanvasScrubbing(canvasId, sectionId, imagePathFunc, frameCount) {
     ) {
       bestFrame--;
     }
-    if (bestFrame < 0) return;
+
+    if (bestFrame < 0) return; // Belum ada gambar sama sekali
+
     const img = images[bestFrame];
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -197,6 +207,7 @@ function setupCanvasScrubbing(canvasId, sectionId, imagePathFunc, frameCount) {
       canvas.width / img.width,
       canvas.height / img.height,
     );
+
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.drawImage(
       img,
@@ -220,21 +231,8 @@ function setupCanvasScrubbing(canvasId, sectionId, imagePathFunc, frameCount) {
     scrollTrigger: {
       trigger: sectionId,
       start: "top top",
-      end: "bottom bottom",
+      end: "bottom bottom", // Pastikan end sesuai dengan tinggi section di CSS
       scrub: true,
-      // NOMOR 3: Memory Management Museum
-      onLeave: () => {
-        images.length = 0;
-      },
-      onLeaveBack: () => {
-        images.length = 0;
-      },
-      onEnter: () => {
-        isLoaded = false;
-      }, // Trigger muat ulang dari cache
-      onEnterBack: () => {
-        isLoaded = false;
-      },
     },
     onUpdate: render,
   });
@@ -249,46 +247,41 @@ function setupHeroSequence() {
   const canvasObj = { frame: 0 };
 
   const firstImg = new Image();
-  firstImg.src = `./david-frames/frame_001.webp`;
-  images[0] = firstImg;
-
-  function loadHero() {
-    let frameIndex = 1;
-    const batchSize = 5;
-    function innerLoad() {
-      if (frameIndex >= frameCount) return;
-      const current = frameIndex++;
-      const img = new Image();
-      img.src = `./david-frames/frame_${(current + 1).toString().padStart(3, "0")}.webp`;
-      img.onload = () => {
-        images[current] = img;
-        innerLoad();
-      };
-      img.onerror = () => innerLoad();
-    }
-    for (let i = 0; i < batchSize; i++) innerLoad();
-  }
+  firstImg.src = `./david-compressed/frame_001.webp`;
+  images[0] = firstImg; // Simpan di index 0
 
   firstImg.onload = () => {
     render();
-    loadHero();
+    let frameIndex = 1;
+    const batchSize = 5; // 5 unduhan sekaligus
+
+    function loadNext() {
+      if (frameIndex >= frameCount) return;
+      const current = frameIndex++;
+      const img = new Image();
+      img.src = `./david-compressed/frame_${(current + 1).toString().padStart(3, "0")}.webp`;
+      img.onload = () => {
+        images[current] = img;
+        loadNext();
+      };
+      img.onerror = () => loadNext();
+    }
+    for (let i = 0; i < batchSize; i++) loadNext();
   };
 
-  // NOMOR 3: Memory Management Hero
+  // MEMORY MANAGEMENT: Hapus saat scroll jauh ke bawah (Gunakan ScrollTrigger)
   ScrollTrigger.create({
-    trigger: "#duality-pin-target",
-    start: "top center",
+    trigger: "#duality-pin-target", // Trigger saat masuk section 2
     onEnter: () => {
-      images.length = 0; // Hapus RAM saat masuk section berikutnya
-    },
-    onLeaveBack: () => {
-      loadHero(); // Ambil lagi dari cache saat user balik ke atas
-    },
+      images.length = 0;
+    }, // Kosongkan RAM Hero
+    onLeaveBack: () => setupHeroSequence(), // Re-init (ambil dari Cache) jika naik lagi
   });
 
   function render() {
     const targetFrame = Math.round(canvasObj.frame);
     let bestFrame = targetFrame;
+    // Cari frame tersedia ke belakang untuk cegah layar hitam
     while (
       bestFrame >= 0 &&
       (!images[bestFrame] || !images[bestFrame].complete)
@@ -296,6 +289,7 @@ function setupHeroSequence() {
       bestFrame--;
     }
     if (bestFrame < 0) return;
+
     const img = images[bestFrame];
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -355,62 +349,41 @@ function setupDualityScrapbook() {
   const canvasObj = { frame: 0 };
 
   const firstImg = new Image();
-  firstImg.src = `./duality-frames/frame_001.webp`;
+  firstImg.src = `./duality-compressed/frame_001.webp`;
   images[0] = firstImg;
 
   firstImg.onload = () => {
     render();
   };
 
-  function loadDuality() {
-    let f = 1;
-    const batch = 4;
-    function innerLoad() {
-      if (f >= frameCount) return;
-      const curr = f++;
-      const img = new Image();
-      img.src = `./duality-frames/frame_${(curr + 1).toString().padStart(3, "0")}.webp`;
-      img.onload = () => {
-        images[curr] = img;
-        innerLoad();
-      };
-      img.onerror = () => innerLoad();
-    }
-    for (let i = 0; i < batch; i++) innerLoad();
-  }
-
   let isLoaded = false;
   const targetElement = document.getElementById("duality-pin-target");
   const observer = new IntersectionObserver(
     (entries) => {
       if (entries[0].isIntersecting && !isLoaded) {
+        // Di dalam IntersectionObserver duality:
         isLoaded = true;
-        loadDuality();
-        observer.disconnect();
+        let f = 1;
+        const batch = 4;
+
+        function loadDuality() {
+          if (f >= frameCount) return;
+          const curr = f++;
+          const img = new Image();
+          img.src = `./duality-compressed/frame_${(curr + 1).toString().padStart(3, "0")}.webp`;
+          img.onload = () => {
+            images[curr] = img;
+            loadDuality();
+          };
+          img.onerror = () => loadDuality();
+        }
+        for (let i = 0; i < batch; i++) loadDuality();
       }
     },
     { rootMargin: "800px 0px" },
   );
 
   if (targetElement) observer.observe(targetElement);
-
-  // NOMOR 3: Memory Management Duality
-  ScrollTrigger.create({
-    trigger: "#duality-pin-target",
-    start: "top bottom",
-    onLeave: () => {
-      images.length = 0;
-    },
-    onLeaveBack: () => {
-      images.length = 0;
-    },
-    onEnter: () => {
-      isLoaded = false;
-    },
-    onEnterBack: () => {
-      isLoaded = false;
-    },
-  });
 
   function render() {
     const targetFrame = Math.round(canvasObj.frame);
@@ -422,6 +395,7 @@ function setupDualityScrapbook() {
       bestFrame--;
     }
     if (bestFrame < 0) return;
+
     const img = images[bestFrame];
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -475,13 +449,16 @@ function setupDualityScrapbook() {
   );
 }
 
-// EKSEKUSI
+// PASTIKAN SEMUA FUNGSI DIPANGGIL AGAR ANIMASI JALAN
 setupHeroSequence();
 setupDualityScrapbook();
 setupVangoghSequence();
+
+// Panggil fungsi generik untuk Museum
 setupCanvasScrubbing(
   "museum-canvas",
   "#museum-section",
-  (i) => `./museum-frames/frame_${(i + 1).toString().padStart(3, "0")}.webp`,
+  (i) =>
+    `./museum-compressed/frame_${(i + 1).toString().padStart(3, "0")}.webp`,
   240,
 );
