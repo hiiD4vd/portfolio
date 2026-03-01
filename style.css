@@ -457,6 +457,44 @@ body {
 }
 
 /* =========================================
+   PERLINDUNGAN TYPOGRAPHY SCRAPBOOK (RESTORED)
+   ========================================= */
+.title-script,
+.pill-title {
+  text-transform: none !important; /* FAKTA KRUSIAL: Membunuh efek uppercase global index.html */
+  font-family: var(
+    --font-script
+  ) !important; /* Memaksa kembali ke Imperial Script */
+  color: var(--accent-red) !important;
+  letter-spacing: normal !important;
+}
+
+.title-script {
+  font-size: 5.5rem;
+  line-height: 1;
+  margin: 0;
+  font-weight: 400;
+  padding: 10px 0;
+}
+
+.pill-title {
+  font-size: 3rem;
+  margin: 0;
+  line-height: 0.6 !important; /* INI KUNCI RAHASIANYA AGAR HURUF MENABRAK FRAME */
+  font-weight: 400;
+}
+
+.drop-cap {
+  font-size: 2.2em; /* Mengembalikan ukuran raksasa */
+  line-height: 0;
+  position: relative;
+  top: -2px;
+  left: 2px;
+  margin-right: -4px;
+  font-family: var(--font-script) !important;
+}
+
+/* =========================================
    ARSITEKTUR HERO VIDEO BACKGROUND
    ========================================= */
 .hero-section-clean {
