@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3 iPhone Flip Cards</title>
+    <style>
+      body {
+        /* 1. KITA NYALAKAN LAGI BACKGROUND ABU-ABUNYA */
+        background-color: #f0f2f5; 
+        font-family: sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      .cards-container {
+        display: flex;
+        flex-wrap: wrap; 
+        gap: 30px; 
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .flip-card {
+        background-color: transparent;
+        width: 220px;
+        height: 450px;
+        perspective: 1500px; 
+      }
+
+      .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); 
+        transform-style: preserve-3d;
+        cursor: pointer; 
+      }
+
+      /* .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+      } */
+
+      /* OPSI ALTERNATIF: Trigger saat container pembungkus di-hover */
+.cards-container:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+      .flip-card-front,
+      .flip-card-back {
+        /* 2. GANTI BOX-SHADOW JADI DROP-SHADOW */
+        /* Drop-shadow akan melacak piksel gambar transparan Anda dan membuat bayangan pas di bentuk HP-nya, bukan bentuk kotak HTML! */
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+        
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        
+        /* 3. HAPUS BORDER-RADIUS DAN OVERFLOW: HIDDEN */
+        /* Karena gambar Anda sudah transparan, kita biarkan lekuk asli gambar yang menjadi batasnya */
+      }
+
+      .flip-card-back {
+        transform: rotateY(180deg);
+      }
+
+      .flip-card-front img,
+      .flip-card-back img {
+        width: 100%;
+        height: 100%;
+        /* Gunakan contain agar lengkungan asli iPhone Anda tidak terpotong (zoom-in) oleh ukuran kontainer */
+        object-fit: contain; 
+        display: block;
+      }
+    </style>
+    </style>
+  </head>
+  <body>
+    <div class="cards-container">
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="iphone.png" alt="iPhone Back" />
+          </div>
+          <div class="flip-card-back">
+            <img src="provider.png" alt="Layar Bantuin" />
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="iphone.png" alt="iPhone Back" />
+          </div>
+          <div class="flip-card-back">
+            <img src="bantuin.png" alt="Layar Dashboard Teknisi" />
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="iphone.png" alt="iPhone Back" />
+          </div>
+          <div class="flip-card-back">
+            <img src="customer.png" alt="Layar Beranda Customer" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scrapbook About Me Component</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Imperial+Script&family=Inter:wght@300;400;500;600;700&family=Quicksand:wght@400;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playball&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        overflow-x: hidden; /* Membunuh scrollbar horizontal selamanya */
+      }
+      /* VARIABEL WARNA & FONT */
+      :root {
+        --bg-cream: #fffbef;
+        --accent-red: #e40a3e;
+        --text-dark: #2b2b2b;
+        --font-serif: "Cinzel", serif;
+        --font-sans: "Inter", sans-serif;
+        --font-sans-alt: "Quicksand", sans-serif;
+        --font-script: "Imperial Script", cursive;
+        --font-mono: "Space Mono", monospace;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: transparent;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        min-height: 100vh;
+        padding: 50px 5vw 50px 10vw;
+      }
+
+      .scrapbook-wrapper {
+        width: 100%;
+        max-width: 1250px;
+        position: relative;
+      }
+
+      /* TABS */
+      .tabs {
+        display: flex;
+        gap: 5px;
+        padding-left: 0;
+        margin-bottom: -1px;
+        position: relative;
+        z-index: 1;
+        align-items: flex-end;
+      }
+      .tab {
+        background-color: var(--accent-red);
+        color: #fffbef;
+        padding: 0 50px;
+        border-radius: 10px 10px 0 0;
+        font-family: "Playball", cursive;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 1.5rem;
+        cursor: pointer;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .tab.active {
+        background-color: var(--bg-cream);
+        color: var(--text-dark);
+        z-index: 3;
+        height: 60px;
+        border: 1px solid #fffbef;
+        border-bottom: none;
+      }
+
+      /* KERTAS UTAMA */
+      .scrapbook-paper {
+        background-color: var(--bg-cream);
+        width: 100%;
+        border-radius: 0 40px 40px 40px;
+        position: relative;
+        z-index: 2;
+        box-shadow: 10px 25px 50px rgba(0, 0, 0, 0.5);
+        padding: 50px 50px 70px 50px;
+        display: grid;
+        grid-template-columns: 38% 62%;
+        gap: 0;
+        color: var(--text-dark);
+        font-family: var(--font-sans);
+      }
+
+      /* ----- TYPOGRAPHY & ORNAMEN ----- */
+      .halo-container {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+      .halo-box {
+        border: 1.5px solid var(--accent-red);
+        padding: 5px 50px;
+        display: inline-block;
+        position: relative;
+      }
+      .title-script {
+        font-family: var(--font-script);
+        font-size: 5.5rem;
+        color: var(--accent-red);
+        line-height: 1;
+        margin: 0;
+        font-weight: 400;
+        padding: 10px 0;
+      }
+      .corner-dot {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border: 1.5px solid var(--accent-red);
+        border-radius: 50%;
+        background-color: var(--bg-cream);
+      }
+      .corner-dot.top-left {
+        top: -4px;
+        left: -4px;
+      }
+      .corner-dot.top-right {
+        top: -4px;
+        right: -4px;
+      }
+      .corner-dot.bottom-left {
+        bottom: -4px;
+        left: -4px;
+      }
+      .corner-dot.bottom-right {
+        bottom: -4px;
+        right: -4px;
+      }
+
+      .body-text {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        font-weight: 400;
+        color: var(--accent-red);
+        text-align: justify;
+        margin-bottom: 20px;
+      }
+      .body-text strong {
+        font-weight: 700;
+      }
+
+      .pill-title-container {
+        border: 1.5px solid var(--accent-red);
+        border-radius: 50px;
+        padding: 0px 40px 0px 25px;
+        display: inline-block;
+        margin-top: 25px;
+        margin-bottom: 20px;
+        height: fit-content;
+      }
+      .pill-title {
+        font-family: var(--font-script);
+        font-size: 3rem;
+        color: var(--accent-red);
+        margin: 0;
+        line-height: 0.6;
+        font-weight: 400;
+      }
+      .drop-cap {
+        font-size: 2.2em;
+        line-height: 0;
+        position: relative;
+        top: -2px;
+        left: 2px;
+        margin-right: -4px;
+      }
+
+      /* KOLOM KIRI (Layout Atas) */
+      .left-column-top {
+        padding-right: 30px;
+      }
+      .project-item {
+        margin-bottom: 18px;
+      }
+      .project-title {
+        font-weight: 700;
+        color: var(--accent-red);
+        font-size: 0.95rem;
+        letter-spacing: -0.2px;
+      }
+      .project-desc {
+        font-size: 0.85rem;
+        margin-top: 3px;
+        color: var(--accent-red);
+        line-height: 1.4;
+        font-weight: 500;
+      }
+
+      /* --- BAGIAN BERGARIS --- */
+      .split-section-left {
+        border-right: 4px solid var(--accent-red);
+        padding-right: 30px;
+      }
+
+      .skill-bar-container {
+        margin-bottom: 15px;
+      }
+      .skill-name {
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: var(--accent-red);
+      }
+      .skill-bar-bg {
+        width: 100%;
+        height: 7px;
+        background-color: #fffbef;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .skill-bar-fill {
+        height: 100%;
+        background-color: var(--accent-red);
+        border-radius: 10px;
+      }
+
+      .hard-skill-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 0.8rem;
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 10px;
+        color: var(--accent-red);
+        font-weight: 600;
+      }
+      .hard-skill-list li {
+        position: relative;
+        padding-left: 15px;
+        line-height: 1.3;
+      }
+      .hard-skill-list li::before {
+        content: "•";
+        color: var(--accent-red);
+        position: absolute;
+        left: 0;
+        font-weight: bold;
+        font-size: 1.2em;
+        top: -2px;
+      }
+
+      /* --- KOLOM KANAN --- */
+      .right-column {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 40px;
+        height: 100%;
+      }
+
+      .lanyard-overlay {
+        position: absolute;
+        z-index: 999;
+        pointer-events: none;
+
+        /* 1. KUNCI RUANG AYUN RAKSASA (Jangan diubah lagi agar tidak geser-geser sendiri!) */
+        width: 2000px;
+        height: 1000px;
+
+        /* 2. KONTROL POSISI (Silakan utak-atik 2 angka ini) */
+        /* Karena kotaknya raksasa 2000px, Anda butuh angka minus (-) yang besar untuk menariknya ke atas/kanan */
+        top: -50px; /* Makin minus = Lanyard makin ditarik naik ke atap */
+        right: -650px; /* Makin minus = Lanyard makin ditarik ke arah kanan */
+      }
+
+      .lanyard-overlay iframe {
+        width: 100%;
+        height: 100%;
+        pointer-events: auto;
+      }
+
+      /* WRAPPER HOBI */
+      .hobi-section-wrapper {
+        width: 100%;
+        margin-top: auto;
+        margin-bottom: 25px;
+      }
+
+      /* HOBI GRID */
+      .hobi-grid {
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: start;
+        gap: 10px 60px;
+        width: 100%;
+        margin-top: 5px;
+      }
+      .hobi-grid ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .hobi-grid li {
+        font-size: 0.8rem;
+        color: var(--text-dark);
+        font-weight: 600;
+        line-height: 1.3;
+      }
+
+      /* SOFTWARE GRID & BOX */
+      .software-box {
+        border: 3px solid var(--accent-red);
+        padding: 15px;
+        border-radius: 10px;
+        width: 75%;
+      }
+
+      /* --- KOREKSI JUDUL SOFTWARE (DIPERBESAR AGAR MEMENUHI KOTAK) --- */
+      .software-title {
+        font-family: var(--font-sans-alt);
+        font-size: 4.5rem; /* UKURAN RAKSASA */
+        color: var(--accent-red);
+        text-align: center;
+        margin-bottom: 10px; /* Jarak bawah dikurangi dikit */
+        letter-spacing: 1px; /* Spasi dirapatkan agar padat */
+        font-weight: 700;
+        line-height: 1; /* Agar tidak terlalu tinggi secara vertikal */
+      }
+      .script-w {
+        font-family: var(--font-script);
+        font-size: 1.3em; /* Akan ikut membesar proporsional */
+        font-weight: 400;
+      }
+
+      .software-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+
+      .software-icon {
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .software-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      /* RECEIPT IMAGE */
+      .receipt-image {
+        position: absolute;
+        right: -100px;
+        bottom: 50px;
+        width: 420px;
+        height: auto;
+        transform: rotate(-8deg);
+        z-index: 10;
+      }
+
+      @media (max-width: 900px) {
+        body {
+          justify-content: center;
+          padding: 20px;
+        }
+        .scrapbook-paper {
+          grid-template-columns: 1fr;
+          padding: 30px 20px;
+          border-radius: 0 30px 30px 30px;
+          gap: 30px;
+          padding-bottom: 30px;
+        }
+        .left-column-top,
+        .right-column,
+        .split-section-left {
+          padding: 0;
+          border: none;
+        }
+        .tabs {
+          gap: 5px;
+        }
+        .tab {
+          padding: 0 20px;
+          font-size: 1.5rem;
+        }
+        .software-box {
+          width: 100%;
+        }
+        .receipt-image {
+          position: relative;
+          right: auto;
+          bottom: auto;
+          transform: rotate(0);
+          margin-top: 30px;
+          width: 100%;
+          max-width: 350px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        .drop-cap {
+          top: 2px;
+          font-size: 2.5em;
+        }
+        .right-column {
+          align-items: center;
+        }
+        .hobi-grid {
+          padding-left: 0;
+          justify-content: center;
+          text-align: center;
+          gap: 10px 20px;
+        }
+        .hobi-section-wrapper {
+          margin-bottom: 30px;
+        }
+        .software-title {
+          font-size: 2.5rem;
+        } /* Penyesuaian di HP agar tidak terlalu besar */
+        #profil-content {
+          display: grid;
+          grid-template-columns: 38% 62%;
+          gap: 0;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="scrapbook-wrapper">
+      <div class="tabs">
+        <div class="tab active" onclick="bukaTab(this, 'profil')">Profil</div>
+        <div class="tab" onclick="bukaTab(this, 'perjalanan')">Perjalanan</div>
+        <div class="tab" onclick="bukaTab(this, 'resume')">Resume</div>
+      </div>
+
+      <div class="scrapbook-paper">
+        <div class="left-column">
+          <div class="left-column-top">
+            <div class="halo-container">
+              <div class="halo-box">
+                <span class="corner-dot top-left"></span>
+                <span class="corner-dot top-right"></span>
+                <span class="corner-dot bottom-left"></span>
+                <span class="corner-dot bottom-right"></span>
+                <h1 class="title-script">Halo!</h1>
+              </div>
+            </div>
+
+            <p class="body-text">
+              Sapa saya <strong>Davinci!</strong> Meskipun di KTP nama saya
+              <strong>Maheza Daud Abu Bakar.</strong> Saat ini saya berusia 20
+              tahun, lahir di Bekasi dan sedang menempuh
+              <strong>studi Teknologi Rekayasa Perangkat Lunak</strong> di
+              Banyuwangi. Fokus utama saya adalah menjembatani estetika dan
+              fungsi. Saya memadukan keahlian di bidang
+              <strong
+                >UI/UX Design dengan logika pemrograman Python dan
+                Flutter.</strong
+              >
+              Tujuan saya? Membangun inovasi teknologi yang cerdas, adaptif, dan
+              berpusat pada manusia.
+            </p>
+
+            <div>
+              <div class="pill-title-container">
+                <h2 class="pill-title"><span class="drop-cap">P</span>rojek</h2>
+              </div>
+            </div>
+
+            <div class="project-item">
+              <div class="project-title">UI/UX Designer & Full-Stack Dev</div>
+              <div class="project-desc">
+                2026 — 2026 Proyek SaaS ISP<br />Desain antarmuka & pengembangan
+                sistem multi-tenant.
+              </div>
+            </div>
+            <div class="project-item">
+              <div class="project-title">Mobile App Developer</div>
+              <div class="project-desc">
+                2025 — 2026 Aplikasi "Bantu-In"<br />Pengembangan full-stack
+                dengan Flutter, integrasi Duitku & Firebase.
+              </div>
+            </div>
+            <div class="project-item">
+              <div class="project-title">UI/UX Designer & Full-Stack Dev</div>
+              <div class="project-desc">
+                2026 — Proyek SaaS ISP<br />Desain antarmuka & pengembangan
+                sistem multi-tenant.
+              </div>
+            </div>
+          </div>
+
+          <div class="split-section-left">
+            <div>
+              <div class="pill-title-container" style="margin-top: 10px">
+                <h2 class="pill-title">
+                  <span class="drop-cap">S</span>oft skill
+                </h2>
+              </div>
+            </div>
+
+            <div class="skill-bar-container">
+              <div class="skill-name">
+                Pemikiran Kreatif (Creative Thinking)
+              </div>
+              <div class="skill-bar-bg">
+                <div class="skill-bar-fill" style="width: 90%"></div>
+              </div>
+            </div>
+            <div class="skill-bar-container">
+              <div class="skill-name">
+                Pemecahan Masalah & Logika (Problem Solving)
+              </div>
+              <div class="skill-bar-bg">
+                <div class="skill-bar-fill" style="width: 85%"></div>
+              </div>
+            </div>
+            <div class="skill-bar-container">
+              <div class="skill-name">
+                Komunikasi Visual (Visual Communication)
+              </div>
+              <div class="skill-bar-bg">
+                <div class="skill-bar-fill" style="width: 95%"></div>
+              </div>
+            </div>
+            <div class="skill-bar-container">
+              <div class="skill-name">
+                Manajemen Proyek (Project Management)
+              </div>
+              <div class="skill-bar-bg">
+                <div class="skill-bar-fill" style="width: 80%"></div>
+              </div>
+            </div>
+            <div class="skill-bar-container">
+              <div class="skill-name">Design Thinking</div>
+              <div class="skill-bar-bg">
+                <div class="skill-bar-fill" style="width: 92%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="pill-title-container" style="margin-top: 25px">
+                <h2 class="pill-title"><span class="drop-cap">S</span>kill</h2>
+              </div>
+            </div>
+
+            <ul class="hard-skill-list">
+              <li>Pengembangan Aplikasi Mobile (Flutter)</li>
+              <li>Integrasi LLM & Prompt Engineering (Gemini AI)</li>
+              <li>Perancangan UI/UX & High-Fidelity Prototype (Figma)</li>
+              <li>Machine Learning (NLP TF-IDF & Computer Vision OCR)</li>
+              <li>Usability Testing (Maze & System Usability Scale/SUS)</li>
+              <li>Data Analysis & Processing (Python, Microsoft Fabric)</li>
+              <li>Full-stack Development (Frontend & Backend)</li>
+              <li>Backend Web Development (Laravel, Firebase, MySQL)</li>
+              <li>Integrasi Payment Gateway (Duitku, Midtrans)</li>
+              <li>
+                Pengujian Otomatis (Unit, Integration, & Performance Test via
+                Apache JMeter)
+              </li>
+              <li>Visualisasi Presentasi Bisnis (Microsoft PowerPoint)</li>
+              <li>Integrasi API Pihak Ketiga (WhatsApp, Email)</li>
+              <li>Implementasi Agile Scrum & SDLC</li>
+              <li>
+                Konfigurasi Jaringan & VPN Tunneling (MikroTik API, WireGuard)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="right-column">
+          <div style="width: 100%; height: 350px"></div>
+
+          <div class="lanyard-overlay" id="lanyard-container">
+            <iframe
+              src="https://glittering-maamoul-7fd2c0.netlify.app"
+              style="
+                border: none;
+                background: transparent;
+                width: 100%;
+                height: 100%;
+              "
+              allowtransparency="true"
+              scrolling="no"
+            >
+            </iframe>
+          </div>
+
+          <div class="hobi-section-wrapper">
+            <div
+              style="width: 100%; display: flex; justify-content: flex-start"
+            >
+              <div
+                class="pill-title-container"
+                style="margin-top: 0; margin-bottom: 15px"
+              >
+                <h2 class="pill-title"><span class="drop-cap">H</span>obi</h2>
+              </div>
+            </div>
+
+            <div class="hobi-grid">
+              <ul>
+                <li>Menggambar</li>
+                <li>Bermain Catur</li>
+                <li>Lari</li>
+                <li>Nge-gym</li>
+                <li>Mendengarkan Musik</li>
+              </ul>
+              <ul>
+                <li>Traveling</li>
+                <li>Bermain Game</li>
+                <li>Membaca Buku</li>
+                <li>Menulis</li>
+                <li>Menonton Film</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="software-box">
+            <h3 class="software-title">
+              SOFT<span class="script-w">W</span>ARES
+            </h3>
+            <div class="software-grid">
+              <div class="software-icon">
+                <img src="logo-figma.png" alt="Figma" />
+              </div>
+              <div class="software-icon">
+                <img src="logo-flutter.png" alt="Flutter" />
+              </div>
+              <div class="software-icon">
+                <img src="logo-react.png" alt="React" />
+              </div>
+              <div class="software-icon">
+                <img src="logo-js.png" alt="JavaScript" />
+              </div>
+              <div class="software-icon">
+                <img src="logo-vscode.png" alt="VS Code" />
+              </div>
+              <div class="software-icon">
+                <img src="logo-python.png" alt="Python" />
+              </div>
+              <div class="software-icon">
+                <img src="logo-laravel.png" alt="Laravel" />
+              </div>
+              <div class="software-icon">
+                <img src="logo-mysql.png" alt="MySQL" />
+              </div>
+              <div class="software-icon">
+                <img src="logo-github.png" alt="GitHub" />
+              </div>
+              <div class="software-icon">
+                <img src="logo-blender.png" alt="Blender" />
+              </div>
+              <div class="software-icon">
+                <img src="logo-capcut.png" alt="CapCut" />
+              </div>
+              <div class="software-icon">
+                <img src="logo-powerpoint.png" alt="PowerPoint" />
+              </div>
+            </div>
+          </div>
+
+          <img
+            src="struk-receipt.png"
+            alt="Receiptify LDR Vinyl"
+            class="receipt-image"
+          />
+        </div>
+
+        <div
+          id="perjalanan"
+          class="isi-tab"
+          style="display: none; width: 100%; min-height: 500px; padding: 20px"
+        >
+          <h2 style="font-family: var(--font-serif); color: var(--accent-red)">
+            Perjalanan Edukasi
+          </h2>
+          <p style="color: var(--accent-red); margin-top: 20px">
+            Halaman Perjalanan (Segera Diisi)
+          </p>
+        </div>
+        <div
+          id="resume"
+          class="isi-tab"
+          style="display: none; width: 100%; min-height: 500px; padding: 20px"
+        >
+          <h2 style="font-family: var(--font-serif); color: var(--accent-red)">
+            Resume & CV
+          </h2>
+          <p style="color: var(--accent-red); margin-top: 20px">
+            Halaman Resume (Segera Diisi)
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function bukaTab(elemenTombol, namaTab) {
+      // Tangkap elemen-elemen asli Anda
+      const kertas = document.querySelector(".scrapbook-paper");
+      const kiri = document.querySelector(".left-column");
+      const kanan = document.querySelector(".right-column");
+      const semuaTabTambahan = document.querySelectorAll(".isi-tab");
+
+      // 1. Sembunyikan dulu tab tambahan (Perjalanan & Resume)
+      for (let i = 0; i < semuaTabTambahan.length; i++) {
+        semuaTabTambahan[i].style.display = "none";
+      }
+
+      // 2. Logika Sembunyi & Tampil
+      if (namaTab === "profil") {
+        // KEMBALI KE PROFIL: Hidupkan lagi semuanya seperti semula
+        kertas.style.display = "grid"; // Kembalikan ke grid asli
+        kiri.style.display = "block"; // Munculkan kiri
+        kanan.style.display = "flex"; // Munculkan kanan (aslinya flex)
+      } else {
+        // PINDAH TAB: Matikan grid dan sembunyikan profil
+        kertas.style.display = "block"; // Jadi block agar tab baru full-width
+        kiri.style.display = "none"; // Matikan kiri
+        kanan.style.display = "none"; // Matikan kanan (Lanyard otomatis ikut hilang!)
+
+        // Munculkan tab yang dituju
+        document.getElementById(namaTab).style.display = "block";
+      }
+
+      // 3. Atur warna tombol tab yang putih
+      const semuaTombol = document.querySelectorAll(".tab");
+      for (let i = 0; i < semuaTombol.length; i++) {
+        semuaTombol[i].classList.remove("active");
+      }
+      elemenTombol.classList.add("active");
+    }
+  </script>
+</html>
