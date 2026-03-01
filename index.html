@@ -53,7 +53,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800&family=Imperial+Script&family=Inter:wght@300;400;500;600;700;800&family=Mea+Culpa&family=Playball&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;700&family=Space+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800&family=Imperial+Script&family=Inter:wght@300;400;500;600;700;800&family=Mea+Culpa&family=Playball&family=Playfair+Display:ital,wght@0,400;1,400&family=Quicksand:wght@700&display=swap"
       rel="stylesheet"
     />
 
@@ -89,183 +89,25 @@
       </ul>
     </nav>
 
-    <section id="hero-sequence" style="width: 100%; background: #050505">
+    <section class="hero-section-clean">
+      <video autoplay loop muted playsinline class="hero-video-bg">
+        <source src="lanadelrey.mp4" type="video/mp4" />
+      </video>
+
       <div
-        id="hero-pin-target"
-        style="width: 100%; height: 100vh; position: relative; overflow: hidden"
+        id="hero-text"
+        class="content-overlay overlay-text-container"
+        style="justify-content: center; align-items: center"
       >
-        <canvas
-          id="hero-canvas"
-          style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-          "
-        ></canvas>
-        <div
-          id="hero-text"
-          class="content-overlay"
-          style="z-index: 2; justify-content: center; align-items: center"
-        >
-          <div class="hero-typo-wrapper">
-            <span class="typo-p">P</span>
-            <span class="typo-ort">ORT</span>
-            <span class="typo-subtitle">SOFTWARE ENGINEER</span>
-            <span class="typo-year">2025</span>
-            <span class="typo-folio">
-              FOLI<span class="typo-o-last">O</span>
-              <span class="typo-sparkle"></span>
-            </span>
-          </div>
-        </div>
-        <div
-          id="hero-text-1"
-          class="content-overlay"
-          style="
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            text-align: left;
-            padding-left: calc(2vw + 150px + 40px);
-            padding-right: 5vw;
-          "
-        >
-          <p
-            style="
-              font-family: &quot;Inter&quot;, sans-serif;
-              font-size: 1.8rem;
-              color: #e0e0e0;
-              max-width: 700px;
-              font-weight: 500;
-              text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9);
-              line-height: 1.6;
-            "
-          >
-            <span
-              style="
-                font-family: &quot;Mea Culpa&quot;, cursive;
-                font-size: 3.8rem;
-                font-weight: 400;
-                position: relative;
-                top: -5px;
-                line-height: 0;
-                padding-right: 2px;
-                color: #ffffff;
-              "
-              >B</span
-            >erfokus pada pengembangan
-            <span style="color: #e40a3e; font-weight: 700">Full-Stack</span>
-            untuk menciptakan ekosistem perangkat lunak skala penuh.
-          </p>
-        </div>
-
-        <div
-          id="hero-text-2"
-          class="content-overlay"
-          style="
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            text-align: left;
-            padding-left: calc(2vw + 150px + 40px);
-            padding-right: 5vw;
-          "
-        >
-          <p
-            style="
-              font-family: &quot;Inter&quot;, sans-serif;
-              font-size: 1.8rem;
-              color: #e0e0e0;
-              max-width: 700px;
-              font-weight: 500;
-              text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9);
-              line-height: 1.6;
-            "
-          >
-            <span
-              style="
-                font-family: &quot;Mea Culpa&quot;, cursive;
-                font-size: 3.8rem;
-                font-weight: 400;
-                position: relative;
-                top: -5px;
-                line-height: 0;
-                padding-right: 2px;
-                color: #ffffff;
-              "
-              >M</span
-            >emastikan aksesibilitas dan kemudahan penggunaan melalui
-            perancangan
-            <span style="color: #e40a3e; font-weight: 700">UI/UX</span> yang
-            presisi.
-          </p>
-        </div>
-
-        <div
-          id="hero-text-3"
-          class="content-overlay"
-          style="
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            text-align: left;
-            padding-left: calc(2vw + 150px + 40px);
-            padding-right: 5vw;
-          "
-        >
-          <p
-            style="
-              font-family: &quot;Inter&quot;, sans-serif;
-              font-size: 1.8rem;
-              color: #e0e0e0;
-              max-width: 700px;
-              font-weight: 500;
-              /* text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9); */
-              line-height: 1.6;
-            "
-          >
-            <span
-              style="
-                font-family: &quot;Mea Culpa&quot;, cursive;
-                font-size: 3.8rem;
-                font-weight: 400;
-                position: relative;
-                top: -5px;
-                line-height: 0;
-                padding-right: 2px;
-                color: #ffffff;
-              "
-              >M</span
-            >eningkatkan otomatisasi dan efisiensi produk dengan
-            mengintegrasikan kapabilitas
-            <span style="color: #e40a3e; font-weight: 700"
-              >Generative AI (Gen AI)</span
-            >.
-          </p>
+        <div class="hero-typo-wrapper">
+          <span class="typo-p">P</span>
+          <span class="typo-ort">ORT</span>
+          <span class="typo-subtitle">SOFTWARE ENGINEER</span>
+          <span class="typo-year">2025</span>
+          <span class="typo-folio">
+            FOLI<span class="typo-o-last">O</span>
+            <span class="typo-sparkle">✨</span>
+          </span>
         </div>
       </div>
     </section>
@@ -292,83 +134,351 @@
 
         <div
           id="duality-text-layer"
-          class="content-overlay"
-          style="
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            text-align: left;
-            padding-left: calc(2vw + 150px + 40px);
-            padding-right: 5vw;
-          "
+          class="content-overlay overlay-text-container"
         >
-          <h2
-            style="
-              font-family: &quot;Cinzel&quot;, serif;
-              font-size: 8vw;
-              font-weight: 800;
-              letter-spacing: -3px;
-              line-height: 1;
-              color: #ffffff;
-              text-shadow: 0px 10px 40px rgba(0, 0, 0, 0.8);
-              margin-bottom: 20px;
-            "
-          >
-            The Architect
-          </h2>
-          <p
-            style="
-              font-family: &quot;Inter&quot;, sans-serif;
-              font-size: 1.8rem;
-              color: #e0e0e0;
-              max-width: 700px;
-              font-weight: 500;
-              text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9);
-              line-height: 1.6;
-            "
-          >
-            <span
-              style="
-                font-family: &quot;Mea Culpa&quot;, cursive;
-                font-size: 3.8rem;
-                font-weight: 400;
-                position: relative;
-                top: -5px;
-                line-height: 0;
-                padding-right: 2px;
-                color: #ffffff;
-              "
-              >D</span
-            >i balik barisan kode dan kanvas visual, ada seseorang yang
-            merangkai logika menjadi estetika. Mari melangkah masuk dan kenali
-            saya lebih dekat.
+          <h2 class="duality-title">The Architect</h2>
+          <p class="body-text-hero">
+            <span class="drop-cap-hero">D</span>i balik barisan kode dan kanvas
+            visual, ada seseorang yang merangkai logika menjadi estetika. Mari
+            melangkah masuk dan kenali saya lebih dekat.
           </p>
         </div>
 
-        <div
-          id="scrapbook-panel"
-          style="
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            height: 2600px;
-            z-index: 10;
-          "
-        >
-          <iframe
-            src="scrapbook.html"
-            style="width: 100%; height: 100%; border: none"
-            scrolling="no"
-            loading="lazy"
-          ></iframe>
+        <div id="scrapbook-panel">
+          <div class="scrapbook-wrapper">
+            <div class="tabs">
+              <div class="tab active" onclick="bukaTab(this, 'profil')">
+                Profil
+              </div>
+              <div class="tab" onclick="bukaTab(this, 'perjalanan')">
+                Perjalanan
+              </div>
+              <div class="tab" onclick="bukaTab(this, 'resume')">Resume</div>
+            </div>
+
+            <div class="scrapbook-paper">
+              <div class="left-column">
+                <div class="left-column-top">
+                  <div class="halo-container">
+                    <div class="halo-box">
+                      <span class="corner-dot top-left"></span>
+                      <span class="corner-dot top-right"></span>
+                      <span class="corner-dot bottom-left"></span>
+                      <span class="corner-dot bottom-right"></span>
+                      <h1 class="title-script">Halo!</h1>
+                    </div>
+                  </div>
+
+                  <p class="body-text">
+                    Sapa saya <strong>Davinci!</strong> Meskipun di KTP nama
+                    saya <strong>Maheza Daud Abu Bakar.</strong> Saat ini saya
+                    berusia 20 tahun, lahir di Bekasi dan sedang menempuh
+                    <strong>studi Teknologi Rekayasa Perangkat Lunak</strong> di
+                    Banyuwangi. Fokus utama saya adalah menjembatani estetika
+                    dan fungsi. Saya memadukan keahlian di bidang
+                    <strong
+                      >UI/UX Design dengan logika pemrograman Python dan
+                      Flutter.</strong
+                    >
+                    Tujuan saya? Membangun inovasi teknologi yang cerdas,
+                    adaptif, dan berpusat pada manusia.
+                  </p>
+
+                  <div>
+                    <div class="pill-title-container">
+                      <h2 class="pill-title">
+                        <span class="drop-cap">P</span>rojek
+                      </h2>
+                    </div>
+                  </div>
+
+                  <div class="project-item">
+                    <div class="project-title">
+                      UI/UX Designer & Full-Stack Dev
+                    </div>
+                    <div class="project-desc">
+                      2026 — 2026 Proyek SaaS ISP<br />Desain antarmuka &
+                      pengembangan sistem multi-tenant.
+                    </div>
+                  </div>
+                  <div class="project-item">
+                    <div class="project-title">Mobile App Developer</div>
+                    <div class="project-desc">
+                      2025 — 2026 Aplikasi "Bantu-In"<br />Pengembangan
+                      full-stack dengan Flutter, integrasi Duitku & Firebase.
+                    </div>
+                  </div>
+                  <div class="project-item">
+                    <div class="project-title">
+                      UI/UX Designer & Full-Stack Dev
+                    </div>
+                    <div class="project-desc">
+                      2026 — Proyek SaaS ISP<br />Desain antarmuka &
+                      pengembangan sistem multi-tenant.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="split-section-left">
+                  <div>
+                    <div class="pill-title-container" style="margin-top: 10px">
+                      <h2 class="pill-title">
+                        <span class="drop-cap">S</span>oft skill
+                      </h2>
+                    </div>
+                  </div>
+
+                  <div class="skill-bar-container">
+                    <div class="skill-name">
+                      Pemikiran Kreatif (Creative Thinking)
+                    </div>
+                    <div class="skill-bar-bg">
+                      <div class="skill-bar-fill" style="width: 90%"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-container">
+                    <div class="skill-name">
+                      Pemecahan Masalah & Logika (Problem Solving)
+                    </div>
+                    <div class="skill-bar-bg">
+                      <div class="skill-bar-fill" style="width: 85%"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-container">
+                    <div class="skill-name">
+                      Komunikasi Visual (Visual Communication)
+                    </div>
+                    <div class="skill-bar-bg">
+                      <div class="skill-bar-fill" style="width: 95%"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-container">
+                    <div class="skill-name">
+                      Manajemen Proyek (Project Management)
+                    </div>
+                    <div class="skill-bar-bg">
+                      <div class="skill-bar-fill" style="width: 80%"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-container">
+                    <div class="skill-name">Design Thinking</div>
+                    <div class="skill-bar-bg">
+                      <div class="skill-bar-fill" style="width: 92%"></div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="pill-title-container" style="margin-top: 25px">
+                      <h2 class="pill-title">
+                        <span class="drop-cap">S</span>kill
+                      </h2>
+                    </div>
+                  </div>
+
+                  <ul class="hard-skill-list">
+                    <li>Pengembangan Aplikasi Mobile (Flutter)</li>
+                    <li>Integrasi LLM & Prompt Engineering (Gemini AI)</li>
+                    <li>Perancangan UI/UX & High-Fidelity Prototype (Figma)</li>
+                    <li>Machine Learning (NLP TF-IDF & Computer Vision OCR)</li>
+                    <li>
+                      Usability Testing (Maze & System Usability Scale/SUS)
+                    </li>
+                    <li>
+                      Data Analysis & Processing (Python, Microsoft Fabric)
+                    </li>
+                    <li>Full-stack Development (Frontend & Backend)</li>
+                    <li>Backend Web Development (Laravel, Firebase, MySQL)</li>
+                    <li>Integrasi Payment Gateway (Duitku, Midtrans)</li>
+                    <li>
+                      Pengujian Otomatis (Unit, Integration, & Performance Test
+                      via Apache JMeter)
+                    </li>
+                    <li>
+                      Visualisasi Presentasi Bisnis (Microsoft PowerPoint)
+                    </li>
+                    <li>Integrasi API Pihak Ketiga (WhatsApp, Email)</li>
+                    <li>Implementasi Agile Scrum & SDLC</li>
+                    <li>
+                      Konfigurasi Jaringan & VPN Tunneling (MikroTik API,
+                      WireGuard)
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="right-column">
+                <div style="width: 100%; height: 350px"></div>
+
+                <div class="lanyard-overlay" id="lanyard-container">
+                  <iframe
+                    src="https://glittering-maamoul-7fd2c0.netlify.app"
+                    style="
+                      border: none;
+                      background: transparent;
+                      width: 100%;
+                      height: 100%;
+                    "
+                    allowtransparency="true"
+                    scrolling="no"
+                    loading="lazy"
+                    title="3D Lanyard Interactive"
+                  ></iframe>
+                </div>
+
+                <div class="hobi-section-wrapper">
+                  <div
+                    style="
+                      width: 100%;
+                      display: flex;
+                      justify-content: flex-start;
+                    "
+                  >
+                    <div
+                      class="pill-title-container"
+                      style="margin-top: 0; margin-bottom: 15px"
+                    >
+                      <h2 class="pill-title">
+                        <span class="drop-cap">H</span>obi
+                      </h2>
+                    </div>
+                  </div>
+
+                  <div class="hobi-grid">
+                    <ul>
+                      <li>Menggambar</li>
+                      <li>Bermain Catur</li>
+                      <li>Lari</li>
+                      <li>Nge-gym</li>
+                      <li>Mendengarkan Musik</li>
+                    </ul>
+                    <ul>
+                      <li>Traveling</li>
+                      <li>Bermain Game</li>
+                      <li>Membaca Buku</li>
+                      <li>Menulis</li>
+                      <li>Menonton Film</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="software-box">
+                  <h3 class="software-title">
+                    SOFT<span class="script-w">W</span>ARES
+                  </h3>
+                  <div class="software-grid">
+                    <div class="software-icon">
+                      <img src="logo-figma.webp" alt="Figma" loading="lazy" />
+                    </div>
+                    <div class="software-icon">
+                      <img
+                        src="logo-flutter.webp"
+                        alt="Flutter"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="software-icon">
+                      <img src="logo-react.webp" alt="React" loading="lazy" />
+                    </div>
+                    <div class="software-icon">
+                      <img src="logo-js.webp" alt="JavaScript" loading="lazy" />
+                    </div>
+                    <div class="software-icon">
+                      <img
+                        src="logo-vscode.webp"
+                        alt="VS Code"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="software-icon">
+                      <img src="logo-python.webp" alt="Python" loading="lazy" />
+                    </div>
+                    <div class="software-icon">
+                      <img
+                        src="logo-laravel.webp"
+                        alt="Laravel"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="software-icon">
+                      <img src="logo-mysql.webp" alt="MySQL" loading="lazy" />
+                    </div>
+                    <div class="software-icon">
+                      <img src="logo-github.webp" alt="GitHub" loading="lazy" />
+                    </div>
+                    <div class="software-icon">
+                      <img
+                        src="logo-blender.webp"
+                        alt="Blender"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="software-icon">
+                      <img src="logo-capcut.webp" alt="CapCut" loading="lazy" />
+                    </div>
+                    <div class="software-icon">
+                      <img
+                        src="logo-powerpoint.webp"
+                        alt="PowerPoint"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <img
+                  src="struk-receipt.webp"
+                  alt="Receiptify LDR Vinyl"
+                  class="receipt-image"
+                  loading="lazy"
+                />
+              </div>
+
+              <div
+                id="perjalanan"
+                class="isi-tab"
+                style="
+                  display: none;
+                  width: 100%;
+                  min-height: 500px;
+                  padding: 20px;
+                "
+              >
+                <h2
+                  style="
+                    font-family: var(--font-serif);
+                    color: var(--accent-red);
+                  "
+                >
+                  Perjalanan Edukasi
+                </h2>
+                <p style="color: var(--accent-red); margin-top: 20px">
+                  Halaman Perjalanan (Segera Diisi)
+                </p>
+              </div>
+              <div
+                id="resume"
+                class="isi-tab"
+                style="
+                  display: none;
+                  width: 100%;
+                  min-height: 500px;
+                  padding: 20px;
+                "
+              >
+                <h2
+                  style="
+                    font-family: var(--font-serif);
+                    color: var(--accent-red);
+                  "
+                >
+                  Resume & CV
+                </h2>
+                <p style="color: var(--accent-red); margin-top: 20px">
+                  Halaman Resume (Segera Diisi)
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -417,60 +527,12 @@
             flex-direction: column;
           "
         >
-          <div
-            class="text-section"
-            style="
-              width: 100%;
-              min-height: 100vh;
-              display: flex;
-              flex-direction: column;
-              justify-content: flex-end;
-              align-items: flex-start;
-              /* FAKTA MATEMATIS: 2vw (jarak nav) + 150px (lebar nav) + 40px (jarak aman) */
-              padding-left: calc(2vw + 150px + 40px);
-              padding-right: 5vw;
-              padding-bottom: 5vh;
-            "
-          >
-            <h2
-              style="
-                font-family: &quot;Inter&quot;, sans-serif;
-                font-size: 12vw;
-                font-weight: 800;
-                letter-spacing: -3px;
-                line-height: 1;
-                color: #ffffff;
-                text-transform: capitalize;
-                margin: 0 0 15px 0;
-                text-shadow: 0px 10px 40px rgba(0, 0, 0, 0.8);
-              "
-            >
-              Bantu-In
-            </h2>
-            <p
-              style="
-                font-family: &quot;Inter&quot;, sans-serif;
-                font-size: 1.8rem;
-                color: #e0e0e0;
-                max-width: 800px;
-                font-weight: 500;
-                text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9);
-              "
-            >
-              <span
-                style="
-                  font-family: &quot;Mea Culpa&quot;, cursive;
-                  font-size: 3.8rem;
-                  font-weight: 400;
-                  position: relative;
-                  top: -5px;
-                  line-height: 0;
-                  padding-right: 2px;
-                  color: #ffffff;
-                "
-                >P</span
-              >latform layanan dinamis yang hidup dan terus bergerak, seperti
-              sapuan kuas kanvas yang bernapas.
+          <div class="vangogh-text-container">
+            <h2 class="vangogh-title">Bantu-In</h2>
+            <p class="body-text-hero" style="max-width: 800px">
+              <span class="drop-cap-hero">P</span>latform layanan dinamis yang
+              hidup dan terus bergerak, seperti sapuan kuas kanvas yang
+              bernapas.
             </p>
           </div>
 

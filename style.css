@@ -9,7 +9,476 @@ body {
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
 }
+/* style scrapbook */
+body {
+  overflow-x: hidden; /* Membunuh scrollbar horizontal selamanya */
+}
+/* VARIABEL WARNA & FONT */
+:root {
+  --bg-cream: #fffbef;
+  --accent-red: #e40a3e;
+  --text-dark: #2b2b2b;
+  --font-serif: "Cinzel", serif;
+  --font-sans: "Inter", sans-serif;
+  --font-sans-alt: "Quicksand", sans-serif;
+  --font-script: "Imperial Script", cursive;
+  --font-mono: "Space Mono", monospace;
+}
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.scrapbook-wrapper {
+  width: 100%;
+  max-width: 1250px;
+  position: relative;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 5px;
+  padding-left: 0;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 1;
+  align-items: flex-end;
+}
+.tab {
+  background-color: var(--accent-red);
+  color: #fffbef;
+  padding: 0 50px;
+  border-radius: 10px 10px 0 0;
+  font-family: "Playball", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.5rem;
+  cursor: pointer;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tab.active {
+  background-color: var(--bg-cream);
+  color: var(--text-dark);
+  z-index: 3;
+  height: 60px;
+  border: 1px solid #fffbef;
+  border-bottom: none;
+}
+
+/* KERTAS UTAMA */
+.scrapbook-paper {
+  background-color: var(--bg-cream);
+  width: 100%;
+  border-radius: 0 40px 40px 40px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 10px 25px 50px rgba(0, 0, 0, 0.5);
+  padding: 50px 50px 70px 50px;
+  display: grid;
+  grid-template-columns: 38% 62%;
+  gap: 0;
+  color: var(--text-dark);
+  font-family: var(--font-sans);
+}
+
+/* ----- TYPOGRAPHY & ORNAMEN ----- */
+.halo-container {
+  text-align: center;
+  margin-bottom: 25px;
+}
+.halo-box {
+  border: 1.5px solid var(--accent-red);
+  padding: 5px 50px;
+  display: inline-block;
+  position: relative;
+}
+.title-script {
+  font-family: var(--font-script);
+  font-size: 5.5rem;
+  color: var(--accent-red);
+  line-height: 1;
+  margin: 0;
+  font-weight: 400;
+  padding: 10px 0;
+}
+.corner-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid var(--accent-red);
+  border-radius: 50%;
+  background-color: var(--bg-cream);
+}
+.corner-dot.top-left {
+  top: -4px;
+  left: -4px;
+}
+.corner-dot.top-right {
+  top: -4px;
+  right: -4px;
+}
+.corner-dot.bottom-left {
+  bottom: -4px;
+  left: -4px;
+}
+.corner-dot.bottom-right {
+  bottom: -4px;
+  right: -4px;
+}
+
+.body-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--accent-red);
+  text-align: justify;
+  margin-bottom: 20px;
+}
+.body-text strong {
+  font-weight: 700;
+}
+
+.pill-title-container {
+  border: 1.5px solid var(--accent-red);
+  border-radius: 50px;
+  padding: 0px 40px 0px 25px;
+  display: inline-block;
+  margin-top: 25px;
+  margin-bottom: 20px;
+  height: fit-content;
+}
+.pill-title {
+  font-family: var(--font-script);
+  font-size: 3rem;
+  color: var(--accent-red);
+  margin: 0;
+  line-height: 0.6;
+  font-weight: 400;
+}
+.drop-cap {
+  font-size: 2.2em;
+  line-height: 0;
+  position: relative;
+  top: -2px;
+  left: 2px;
+  margin-right: -4px;
+}
+
+/* KOLOM KIRI (Layout Atas) */
+.left-column-top {
+  padding-right: 30px;
+}
+.project-item {
+  margin-bottom: 18px;
+}
+.project-title {
+  font-weight: 700;
+  color: var(--accent-red);
+  font-size: 0.95rem;
+  letter-spacing: -0.2px;
+}
+.project-desc {
+  font-size: 0.85rem;
+  margin-top: 3px;
+  color: var(--accent-red);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* --- BAGIAN BERGARIS --- */
+.split-section-left {
+  border-right: 4px solid var(--accent-red);
+  padding-right: 30px;
+}
+
+.skill-bar-container {
+  margin-bottom: 15px;
+}
+.skill-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--accent-red);
+}
+.skill-bar-bg {
+  width: 100%;
+  height: 7px;
+  background-color: #fffbef;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  background-color: var(--accent-red);
+  border-radius: 10px;
+}
+
+.hard-skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.8rem;
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 10px;
+  color: var(--accent-red);
+  font-weight: 600;
+}
+.hard-skill-list li {
+  position: relative;
+  padding-left: 15px;
+  line-height: 1.3;
+}
+.hard-skill-list li::before {
+  content: "•";
+  color: var(--accent-red);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+  font-size: 1.2em;
+  top: -2px;
+}
+
+/* --- KOLOM KANAN --- */
+.right-column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 40px;
+  height: 100%;
+}
+
+.lanyard-overlay {
+  position: absolute;
+  z-index: 999;
+  pointer-events: none;
+
+  /* 1. KUNCI RUANG AYUN RAKSASA (Jangan diubah lagi agar tidak geser-geser sendiri!) */
+  width: 2000px;
+  height: 1000px;
+
+  /* 2. KONTROL POSISI (Silakan utak-atik 2 angka ini) */
+  /* Karena kotaknya raksasa 2000px, Anda butuh angka minus (-) yang besar untuk menariknya ke atas/kanan */
+  top: -50px; /* Makin minus = Lanyard makin ditarik naik ke atap */
+  right: -650px; /* Makin minus = Lanyard makin ditarik ke arah kanan */
+}
+
+.lanyard-overlay iframe {
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+}
+
+/* WRAPPER HOBI */
+.hobi-section-wrapper {
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: 25px;
+}
+
+/* HOBI GRID */
+.hobi-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: start;
+  gap: 10px 60px;
+  width: 100%;
+  margin-top: 5px;
+}
+.hobi-grid ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.hobi-grid li {
+  font-size: 0.8rem;
+  color: var(--text-dark);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* SOFTWARE GRID & BOX */
+.software-box {
+  border: 3px solid var(--accent-red);
+  padding: 15px;
+  border-radius: 10px;
+  width: 75%;
+}
+
+/* --- KOREKSI JUDUL SOFTWARE (DIPERBESAR AGAR MEMENUHI KOTAK) --- */
+.software-title {
+  font-family: var(--font-sans-alt);
+  font-size: 4.5rem; /* UKURAN RAKSASA */
+  color: var(--accent-red);
+  text-align: center;
+  margin-bottom: 10px; /* Jarak bawah dikurangi dikit */
+  letter-spacing: 1px; /* Spasi dirapatkan agar padat */
+  font-weight: 700;
+  line-height: 1; /* Agar tidak terlalu tinggi secara vertikal */
+}
+.script-w {
+  font-family: var(--font-script);
+  font-size: 1.3em; /* Akan ikut membesar proporsional */
+  font-weight: 400;
+}
+
+.software-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.software-icon {
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.software-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* RECEIPT IMAGE */
+.receipt-image {
+  position: absolute;
+  right: -100px;
+  bottom: 50px;
+  width: 420px;
+  height: auto;
+  transform: rotate(-8deg);
+  z-index: 10;
+}
+/* Mengembalikan tata letak Scrapbook yang mentok kanan */
+#scrapbook-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 2600px;
+  z-index: 10;
+  /* Logika Flexbox untuk meratakan ke kanan */
+  display: flex;
+  justify-content: flex-end;
+  padding: 50px 5vw 50px 10vw; /* Mengembalikan margin asli scrapbook */
+}
+
+/* punya scrapbook */
+
+/* =========================================
+   ARSITEKTUR TYPOGRAPHY & OVERLAY LAYOUT
+   ========================================= */
+.overlay-text-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  padding-left: calc(2vw + 150px + 40px);
+  padding-right: 5vw;
+}
+
+.body-text-hero {
+  font-family: "Inter", sans-serif;
+  font-size: 1.8rem;
+  color: #e0e0e0;
+  max-width: 700px;
+  font-weight: 500;
+  text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9);
+  line-height: 1.6;
+}
+
+.drop-cap-hero {
+  font-family: "Mea Culpa", cursive;
+  font-size: 3.8rem;
+  font-weight: 400;
+  position: relative;
+  top: -5px;
+  line-height: 0;
+  padding-right: 2px;
+  color: #ffffff;
+}
+
+.highlight-red {
+  color: #e40a3e;
+  font-weight: 700;
+}
+
+.duality-title {
+  font-family: "Cinzel", serif;
+  font-size: 8vw;
+  font-weight: 800;
+  letter-spacing: -3px;
+  line-height: 1;
+  color: #ffffff;
+  text-shadow: 0px 10px 40px rgba(0, 0, 0, 0.8);
+  margin-bottom: 20px;
+}
+
+.vangogh-text-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding-left: calc(2vw + 150px + 40px);
+  padding-right: 5vw;
+  padding-bottom: 5vh;
+}
+
+.vangogh-title {
+  font-family: "Inter", sans-serif;
+  font-size: 12vw;
+  font-weight: 800;
+  letter-spacing: -3px;
+  line-height: 1;
+  color: #ffffff;
+  text-transform: capitalize;
+  margin: 0 0 15px 0;
+  text-shadow: 0px 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+/* =========================================
+   ARSITEKTUR HERO VIDEO BACKGROUND
+   ========================================= */
+.hero-section-clean {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: #050505;
+}
+
+.hero-video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Memaksa video memenuhi layar tanpa distorsi */
+  z-index: 1;
+  filter: brightness(
+    0.8
+  ); /* Menggelapkan video agar teks putih tetap terbaca */
+}
 /* OPTIMASI RENDER GPU UNTUK GSAP */
 #hero-text,
 #hero-text-1,
@@ -350,5 +819,71 @@ p {
   /* 3. Perkecil Teks Raksasa di Mobile */
   .hero-statements .statement-wrapper {
     font-size: 1.5rem;
+  }
+
+  @media (max-width: 900px) {
+    body {
+      justify-content: center;
+      padding: 20px;
+    }
+    .scrapbook-paper {
+      grid-template-columns: 1fr;
+      padding: 30px 20px;
+      border-radius: 0 30px 30px 30px;
+      gap: 30px;
+      padding-bottom: 30px;
+    }
+    .left-column-top,
+    .right-column,
+    .split-section-left {
+      padding: 0;
+      border: none;
+    }
+    .tabs {
+      gap: 5px;
+    }
+    .tab {
+      padding: 0 20px;
+      font-size: 1.5rem;
+    }
+    .software-box {
+      width: 100%;
+    }
+    .receipt-image {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      transform: rotate(0);
+      margin-top: 30px;
+      width: 100%;
+      max-width: 350px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .drop-cap {
+      top: 2px;
+      font-size: 2.5em;
+    }
+    .right-column {
+      align-items: center;
+    }
+    .hobi-grid {
+      padding-left: 0;
+      justify-content: center;
+      text-align: center;
+      gap: 10px 20px;
+    }
+    .hobi-section-wrapper {
+      margin-bottom: 30px;
+    }
+    .software-title {
+      font-size: 2.5rem;
+    } /* Penyesuaian di HP agar tidak terlalu besar */
+    #profil-content {
+      display: grid;
+      grid-template-columns: 38% 62%;
+      gap: 0;
+      width: 100%;
+    }
   }
 }

@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maheza Daud | The Renaissance Engineer</title>
+    <meta
+      name="description"
+      content="Portofolio Maheza Daud. Berfokus pada pengembangan Full-Stack, perancangan UI/UX, dan integrasi Generative AI untuk menciptakan ekosistem perangkat lunak skala penuh."
+    />
+    <meta
+      name="keywords"
+      content="Maheza Daud, Full Stack Developer, Software Engineering Student, UI/UX Design, Generative AI, Web Apps, SaaS, Flutter"
+    />
+    <meta name="author" content="Maheza Daud" />
+
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://portfolio-nine-sigma-lpfl4928wf.vercel.app/"
+    />
+    <meta
+      property="og:title"
+      content="Maheza Daud | Software Engineering Student | Full Stack Developer | Building AI-Powered Web Apps"
+    />
+    <meta
+      property="og:description"
+      content="Membangun inovasi teknologi yang cerdas dan adaptif. Eksplorasi arsitektur perangkat lunak dan mahakarya antarmuka oleh Maheza Daud."
+    />
+    <meta
+      property="og:image"
+      content="https://domain-portofolio-anda.vercel.app/thumbnail-og.webp"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:url"
+      content="https://domain-portofolio-anda.vercel.app/"
+    />
+    <meta
+      name="twitter:title"
+      content="Maheza Daud | The Renaissance Engineer"
+    />
+    <meta
+      name="twitter:description"
+      content="Berfokus pada pengembangan Full-Stack, perancangan UI/UX, dan integrasi Generative AI."
+    />
+    <meta
+      name="twitter:image"
+      content="https://domain-portofolio-anda.vercel.app/thumbnail-og.webp"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800&family=Imperial+Script&family=Inter:wght@300;400;500;600;700;800&family=Mea+Culpa&family=Playball&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="sidebar">
+      <ul>
+        <li>
+          <a href="#hero-section"
+            ><span class="nav-text">The Awakening</span>
+            <span class="nav-num">I</span></a
+          >
+        </li>
+        <li>
+          <a href="#duality-section"
+            ><span class="nav-text">The Duality</span>
+            <span class="nav-num">II</span></a
+          >
+        </li>
+        <li>
+          <a href="#museum-section"
+            ><span class="nav-text">SaaS ISP</span>
+            <span class="nav-num">III</span></a
+          >
+        </li>
+        <li>
+          <a href="#vangogh-section"
+            ><span class="nav-text">Bantu-In</span>
+            <span class="nav-num">IV</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <section id="hero-sequence" style="width: 100%; background: #050505">
+      <div
+        id="hero-pin-target"
+        style="width: 100%; height: 100vh; position: relative; overflow: hidden"
+      >
+        <canvas
+          id="hero-canvas"
+          style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+          "
+        ></canvas>
+        <div
+          id="hero-text"
+          class="content-overlay"
+          style="z-index: 2; justify-content: center; align-items: center"
+        >
+          <div class="hero-typo-wrapper">
+            <span class="typo-p">P</span>
+            <span class="typo-ort">ORT</span>
+            <span class="typo-subtitle">SOFTWARE ENGINEER</span>
+            <span class="typo-year">2025</span>
+            <span class="typo-folio">
+              FOLI<span class="typo-o-last">O</span>
+              <span class="typo-sparkle"></span>
+            </span>
+          </div>
+        </div>
+        <div
+          id="hero-text-1"
+          class="content-overlay"
+          style="
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            padding-left: calc(2vw + 150px + 40px);
+            padding-right: 5vw;
+          "
+        >
+          <p
+            style="
+              font-family: &quot;Inter&quot;, sans-serif;
+              font-size: 1.8rem;
+              color: #e0e0e0;
+              max-width: 700px;
+              font-weight: 500;
+              text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9);
+              line-height: 1.6;
+            "
+          >
+            <span
+              style="
+                font-family: &quot;Mea Culpa&quot;, cursive;
+                font-size: 3.8rem;
+                font-weight: 400;
+                position: relative;
+                top: -5px;
+                line-height: 0;
+                padding-right: 2px;
+                color: #ffffff;
+              "
+              >B</span
+            >erfokus pada pengembangan
+            <span style="color: #e40a3e; font-weight: 700">Full-Stack</span>
+            untuk menciptakan ekosistem perangkat lunak skala penuh.
+          </p>
+        </div>
+
+        <div
+          id="hero-text-2"
+          class="content-overlay"
+          style="
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            padding-left: calc(2vw + 150px + 40px);
+            padding-right: 5vw;
+          "
+        >
+          <p
+            style="
+              font-family: &quot;Inter&quot;, sans-serif;
+              font-size: 1.8rem;
+              color: #e0e0e0;
+              max-width: 700px;
+              font-weight: 500;
+              text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9);
+              line-height: 1.6;
+            "
+          >
+            <span
+              style="
+                font-family: &quot;Mea Culpa&quot;, cursive;
+                font-size: 3.8rem;
+                font-weight: 400;
+                position: relative;
+                top: -5px;
+                line-height: 0;
+                padding-right: 2px;
+                color: #ffffff;
+              "
+              >M</span
+            >emastikan aksesibilitas dan kemudahan penggunaan melalui
+            perancangan
+            <span style="color: #e40a3e; font-weight: 700">UI/UX</span> yang
+            presisi.
+          </p>
+        </div>
+
+        <div
+          id="hero-text-3"
+          class="content-overlay"
+          style="
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            padding-left: calc(2vw + 150px + 40px);
+            padding-right: 5vw;
+          "
+        >
+          <p
+            style="
+              font-family: &quot;Inter&quot;, sans-serif;
+              font-size: 1.8rem;
+              color: #e0e0e0;
+              max-width: 700px;
+              font-weight: 500;
+              /* text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9); */
+              line-height: 1.6;
+            "
+          >
+            <span
+              style="
+                font-family: &quot;Mea Culpa&quot;, cursive;
+                font-size: 3.8rem;
+                font-weight: 400;
+                position: relative;
+                top: -5px;
+                line-height: 0;
+                padding-right: 2px;
+                color: #ffffff;
+              "
+              >M</span
+            >eningkatkan otomatisasi dan efisiensi produk dengan
+            mengintegrasikan kapabilitas
+            <span style="color: #e40a3e; font-weight: 700"
+              >Generative AI (Gen AI)</span
+            >.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="duality-scrapbook-sequence"
+      style="width: 100%; background: #050505"
+    >
+      <div
+        id="duality-pin-target"
+        style="width: 100%; height: 100vh; position: relative; overflow: hidden"
+      >
+        <canvas
+          id="duality-canvas"
+          style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+          "
+        ></canvas>
+
+        <div
+          id="duality-text-layer"
+          class="content-overlay"
+          style="
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            padding-left: calc(2vw + 150px + 40px);
+            padding-right: 5vw;
+          "
+        >
+          <h2
+            style="
+              font-family: &quot;Cinzel&quot;, serif;
+              font-size: 8vw;
+              font-weight: 800;
+              letter-spacing: -3px;
+              line-height: 1;
+              color: #ffffff;
+              text-shadow: 0px 10px 40px rgba(0, 0, 0, 0.8);
+              margin-bottom: 20px;
+            "
+          >
+            The Architect
+          </h2>
+          <p
+            style="
+              font-family: &quot;Inter&quot;, sans-serif;
+              font-size: 1.8rem;
+              color: #e0e0e0;
+              max-width: 700px;
+              font-weight: 500;
+              text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9);
+              line-height: 1.6;
+            "
+          >
+            <span
+              style="
+                font-family: &quot;Mea Culpa&quot;, cursive;
+                font-size: 3.8rem;
+                font-weight: 400;
+                position: relative;
+                top: -5px;
+                line-height: 0;
+                padding-right: 2px;
+                color: #ffffff;
+              "
+              >D</span
+            >i balik barisan kode dan kanvas visual, ada seseorang yang
+            merangkai logika menjadi estetika. Mari melangkah masuk dan kenali
+            saya lebih dekat.
+          </p>
+        </div>
+
+        <div
+          id="scrapbook-panel"
+          style="
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 2600px;
+            z-index: 10;
+          "
+        >
+          <iframe
+            src="scrapbook.html"
+            style="width: 100%; height: 100%; border: none"
+            scrolling="no"
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="scroll-section" id="museum-section">
+      <div class="video-container">
+        <canvas id="museum-canvas"></canvas>
+      </div>
+      <div class="content-overlay">
+        <div class="text-block">
+          <!-- <h2>SaaS ISP</h2>
+          <p>
+            Arsitektur jaringan dan cloud infrastructure yang diibaratkan
+            seperti mahakarya seni klasik.
+          </p> -->
+        </div>
+      </div>
+    </section>
+
+    <section id="vangogh-sequence" style="width: 100%; background: #050505">
+      <div
+        id="vangogh-pin-target"
+        style="width: 100%; height: 100vh; position: relative; overflow: hidden"
+      >
+        <canvas
+          id="vangogh-canvas"
+          style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+          "
+        ></canvas>
+
+        <div
+          id="vangogh-content-wrapper"
+          style="
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+          "
+        >
+          <div
+            class="text-section"
+            style="
+              width: 100%;
+              min-height: 100vh;
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-end;
+              align-items: flex-start;
+              /* FAKTA MATEMATIS: 2vw (jarak nav) + 150px (lebar nav) + 40px (jarak aman) */
+              padding-left: calc(2vw + 150px + 40px);
+              padding-right: 5vw;
+              padding-bottom: 5vh;
+            "
+          >
+            <h2
+              style="
+                font-family: &quot;Inter&quot;, sans-serif;
+                font-size: 12vw;
+                font-weight: 800;
+                letter-spacing: -3px;
+                line-height: 1;
+                color: #ffffff;
+                text-transform: capitalize;
+                margin: 0 0 15px 0;
+                text-shadow: 0px 10px 40px rgba(0, 0, 0, 0.8);
+              "
+            >
+              Bantu-In
+            </h2>
+            <p
+              style="
+                font-family: &quot;Inter&quot;, sans-serif;
+                font-size: 1.8rem;
+                color: #e0e0e0;
+                max-width: 800px;
+                font-weight: 500;
+                text-shadow: 0px 5px 20px rgba(0, 0, 0, 0.9);
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;Mea Culpa&quot;, cursive;
+                  font-size: 3.8rem;
+                  font-weight: 400;
+                  position: relative;
+                  top: -5px;
+                  line-height: 0;
+                  padding-right: 2px;
+                  color: #ffffff;
+                "
+                >P</span
+              >latform layanan dinamis yang hidup dan terus bergerak, seperti
+              sapuan kuas kanvas yang bernapas.
+            </p>
+          </div>
+
+          <div
+            class="image-section"
+            style="
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-end;
+              /* Sejajar dengan teks di kiri */
+              padding-left: calc(2vw + 150px + 40px);
+              /* MENTOK KANAN: Padding kanan dibunuh menjadi 0 */
+              padding-right: 2vw;
+              padding-bottom: 20vh;
+              gap: 40px;
+            "
+          >
+            <img
+              src="bantu-in-slide-1.webp"
+              alt="Presentasi Bantu-In 1"
+              style="
+                width: 100%;
+                border-radius: 0px 0 0 0px;
+                box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
+              "
+            />
+            <img
+              src="bantu-in-slide-2.webp"
+              alt="Presentasi Bantu-In 2"
+              style="
+                width: 100%;
+                border-radius: 0px 0 0 0px;
+                box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
+              "
+            />
+            <img
+              src="bantu-in-slide-3.webp"
+              alt="Presentasi Bantu-In 2"
+              style="
+                width: 100%;
+                border-radius: 0px 0 0 0px;
+                box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
+              "
+            />
+            <img
+              src="bantu-in-slide-4.webp"
+              alt="Presentasi Bantu-In 2"
+              style="
+                width: 100%;
+                border-radius: 0px 0 0 0px;
+                box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
+              "
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="main.js" defer></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  </body>
+</html>
