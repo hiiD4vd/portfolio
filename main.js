@@ -398,3 +398,17 @@ setupCanvasScrubbing(
     `./museum-compressed/frame_${(i + 1).toString().padStart(3, "0")}.webp`,
   240,
 );
+
+// ==========================================
+// KONTROL KOORDINAT CIRCULAR CURSOR
+// ==========================================
+const customCursor = document.getElementById("circular-cursor");
+
+// Mengecek apakah perangkat memiliki mouse (mengabaikan HP/Tablet)
+if (window.matchMedia("(pointer: fine)").matches) {
+  document.addEventListener("mousemove", (e) => {
+    // Menggunakan RequestAnimationFrame secara tidak langsung via CSS calc
+    // untuk mencegah lag pada main thread
+    customCursor.style.transform = `translate(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%))`;
+  });
+}

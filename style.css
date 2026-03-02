@@ -913,6 +913,168 @@ p {
     transform: translateX(-50%);
   }
 }
+
+/* =========================================
+   ARSITEKTUR GLOBAL BRANDING LOGO
+   ========================================= */
+.brand-logo {
+  position: fixed;
+
+  /* FAKTA KRUSIAL: Koordinat cermin dari sidebar Anda */
+  top: 5vh;
+  left: 2vw;
+
+  z-index: 100; /* Hierarki absolut tertinggi agar tidak tertelan section apapun */
+  display: block;
+
+  /* Skala dinamis: Minimal 80px di HP, membesar mengikuti layar, maksimal 120px */
+  width: clamp(80px, 6vw, 120px);
+
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.brand-logo img,
+.brand-logo svg {
+  width: 100%;
+  height: auto;
+  display: block;
+
+  /* Jika logo SVG Anda berwarna merah murni, ini akan menjaganya tetap tajam */
+  object-fit: contain;
+}
+
+/* Micro-interaction kelas atas untuk UI/UX */
+.brand-logo:hover {
+  transform: scale(1.08); /* Efek membesar sedikit saat disentuh kursor */
+}
+
+/* =========================================
+   ARSITEKTUR SCROLL INDICATOR
+   ========================================= */
+.scroll-indicator {
+  position: absolute;
+
+  /* FAKTA: Mengunci tepat di tengah layar, 5% dari dasar layar */
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px; /* Jarak antara mouse dan teks */
+
+  opacity: 0.6; /* Dibuat sedikit redup agar tidak mendominasi layar */
+  transition: opacity 0.3s ease;
+}
+
+.scroll-indicator:hover {
+  opacity: 1; /* Menyala saat disorot */
+}
+
+.mouse-icon {
+  width: 22px; /* Ukuran kecil, elegan, tidak mengganggu */
+  height: 34px;
+}
+
+.scroll-text {
+  font-family: "Inter", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 2px; /* Spasi renggang untuk kesan premium */
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+/* Mesin Animasi Roda Mouse */
+.scroll-wheel {
+  animation: scrollWheel 1.5s cubic-bezier(0.68, -0.55, 0.26, 1.55) infinite;
+}
+
+@keyframes scrollWheel {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+
+/* =========================================
+   ARSITEKTUR CIRCULAR TEXT CURSOR
+   ========================================= */
+/* Membunuh kursor bawaan sistem di seluruh halaman desktop */
+@media (min-width: 769px) {
+  body {
+    cursor: none !important;
+  }
+}
+
+#circular-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 90px; /* Ukuran diameter kursor */
+  height: 90px;
+
+  /* FAKTA KRUSIAL 1: Agar kursor tidak memblokir tombol saat Anda mengkliknya */
+  pointer-events: none;
+
+  z-index: 9999; /* Hierarki absolut tertinggi */
+  will-change: transform; /* Optimasi GPU */
+}
+.cursor-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* Ukuran titik tengah, silakan perbesar/perkecil sesuai selera */
+  width: 6px;
+  height: 6px;
+
+  background-color: #e40a3e; /* Warna merah tajam Anda */
+  border-radius: 50%;
+  z-index: 2; /* Memastikan titik berada di atas teks */
+}
+
+.cursor-spin {
+  width: 100%;
+  height: 100%;
+
+  /* FAKTA KRUSIAL 2: Mesin putar 10 detik tanpa henti */
+  animation: textSpin 10s linear infinite;
+}
+
+.cursor-spin svg {  
+  width: 100%;
+  height: 100%;
+  fill: #ffffff; /* Menggunakan warna merah aksen utama Anda */
+  font-family: "Inter", sans-serif;
+  font-size: 13.5px; /* Kalibrasi ukuran agar teks membungkus lingkaran dengan rapi */
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+@keyframes textSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* FAKTA KRUSIAL 3: Kursor kustom wajib mati di perangkat Mobile/Touchscreen */
+@media (max-width: 768px) {
+  #circular-cursor {
+    display: none !important;
+  }
+}
 /* =========================================
    OPTIMASI RESPONSIVE MOBILE (a11y & UX)
    ========================================= */
