@@ -312,17 +312,41 @@ function setupDualityScrapbook() {
   );
 }
 
-// EKSEKUSI SEMUA
+// ==========================================
+// 5. SETUP TEXT REVEAL SCRUBBING
+// ==========================================
+function setupTextReveal() {
+  const textElement = document.getElementById("reveal-text");
+  if (!textElement) return;
 
-setupDualityScrapbook();
-setupVangoghSequence();
-setupCanvasScrubbing(
-  "museum-canvas",
-  "#museum-section",
-  (i) =>
-    `./museum-compressed/frame_${(i + 1).toString().padStart(3, "0")}.webp`,
-  240,
-);
+  // 1. Vanilla JS String Splitter (Memecah 1 paragraf menjadi elemen per kata)
+  const text = textElement.innerText;
+  const words = text.split(" ");
+  textElement.innerHTML = ""; // Kosongkan paragraf asli
+
+  // Bungkus setiap kata dengan tag <span>
+  words.forEach((word) => {
+    const span = document.createElement("span");
+    span.className = "reveal-word";
+    span.innerText = word;
+    textElement.appendChild(span);
+  });
+
+  // 2. Eksekusi GSAP ScrollTrigger
+  const wordsArray = gsap.utils.toArray(".reveal-word");
+
+  gsap.to(wordsArray, {
+    color: "#ffffff", // Berubah menyala menjadi putih murni
+    stagger: 1, // Kunci animasi berurutan (kiri ke kanan, turun ke bawah)
+    scrollTrigger: {
+      trigger: "#text-reveal-section",
+      start: "top top", // Trigger saat layar hitam menyentuh atap
+      end: "+=150%", // Tahan layar (pin) sejauh 1.5x tinggi layar untuk waktu baca
+      pin: true, // Kunci halaman agar tidak melorot ke Duality sebelum teks selesai dibaca
+      scrub: 0.5, // Animasi sangat mulus terikat pada scroll wheel
+    },
+  });
+}
 
 function bukaTab(elemenTombol, namaTab) {
   // Tangkap elemen-elemen asli Anda
@@ -359,3 +383,18 @@ function bukaTab(elemenTombol, namaTab) {
   }
   elemenTombol.classList.add("active");
 }
+
+// JANGAN LUPA PANGGIL FUNGSINYA
+setupTextReveal();
+
+// EKSEKUSI SEMUA
+
+setupDualityScrapbook();
+setupVangoghSequence();
+setupCanvasScrubbing(
+  "museum-canvas",
+  "#museum-section",
+  (i) =>
+    `./museum-compressed/frame_${(i + 1).toString().padStart(3, "0")}.webp`,
+  240,
+);

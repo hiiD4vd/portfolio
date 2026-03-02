@@ -622,6 +622,7 @@ p {
   font-weight: 300;
   line-height: 1.6;
 }
+
 /* =========================================
          PANEL KONTROL TYPOGRAPHY PORTFOLIO
          Silakan ubah angka-angka di bawah ini untuk presisi!
@@ -795,6 +796,122 @@ p {
 .statement-fill .highlight {
   color: #e40a3e; /* Merah solid murni */
   font-weight: 600;
+}
+/* =========================================
+   ARSITEKTUR TEXT REVEAL SCRUBBING (PROPORSI ABSOLUT)
+   ========================================= */
+.reveal-section {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #050505 !important;
+  position: relative;
+  z-index: 2 !important;
+
+  display: flex;
+  align-items: center;
+
+  /* FAKTA PROPORSI KOREKSI: 
+     Atas & Bawah: 10vh (Menjamin bantalan absolut agar tidak mentok).
+     Kiri: 25vw (Menyediakan ruang navigasi yang pas, tidak berlebihan).
+     Kanan: 5vw (Membuka gerbang agar teks bisa merentang lebar ke kanan). */
+  padding: 15vh 5vw 15vh 15vw;
+  box-sizing: border-box;
+}
+
+.reveal-container {
+  width: 100%;
+  max-width: 1300px; /* Lebar maksimal dibuka lebar agar teks bisa menyamping */
+  text-align: left; /* Memaksa teks rata kiri, tidak memusat */
+}
+
+.reveal-paragraph {
+  font-family: "Playfair Display", serif;
+
+  /* Skala dibuat lebih masif untuk menonjolkan detail lekukan klasik */
+  font-size: clamp(1.5rem, 3.2vw, 3.5rem);
+
+  /* Sekarang ketebalan 700 (Bold) akan dirender murni dari file font */
+  font-weight: 700;
+
+  /* Jarak antar baris dirapatkan agar terlihat seperti blok editorial */
+  line-height: 1.3;
+
+  /* FAKTA TEKNIS: Merapatkan font serif ukuran besar agar presisi */
+  letter-spacing: -0.02em;
+
+  color: rgba(255, 255, 255, 0.15);
+  margin: 0;
+  max-width: 1400px;
+}
+
+.reveal-word {
+  display: inline-block;
+  margin-right: 0.3em;
+  will-change: color;
+}
+
+/* =========================================
+   ARSITEKTUR INFINITE MARQUEE BANNER
+   ========================================= */
+.marquee-wrapper {
+  width: 100%;
+
+  background: linear-gradient(
+    90deg,
+    #e40a3e 0%,
+    /* KIRI: Merah terang (Warna aksen utama Anda) */ #480312 50%,
+    /* TENGAH: Merah redup sedang (Menciptakan transisi mulus) */ #0f0003 100%
+      /* KANAN: Merah sangat gelap, nyaris hitam (Jauh lebih pekat dari sebelumnya) */
+  );
+
+  padding: 2.5vh 0; /* Ketebalan pita atas-bawah */
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Garis batas tipis */
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content; /* FAKTA KRUSIAL: Membiarkan lebar membentang tak terbatas */
+
+  /* Angka 15s adalah kecepatan. Semakin kecil = makin ngebut. Linear = kecepatan konstan */
+  animation: marqueeScroll 15s linear infinite;
+  will-change: transform; /* Instruksi untuk GPU */
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 4vw; /* Jarak antara teks dan bintang */
+  padding-right: 4vw; /* Jarak sebelum menyambung ke duplikat */
+  flex-shrink: 0;
+}
+
+.marquee-content span {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  color: #ffffff;
+  white-space: nowrap; /* Mencegah teks turun baris */
+  letter-spacing: 1px;
+}
+
+.marquee-star {
+  width: clamp(20px, 1.5vw, 28px);
+  height: clamp(20px, 1.5vw, 28px);
+  color: #ffffff;
+}
+
+/* Mesin Penggerak Loop 50% */
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 /* =========================================
    OPTIMASI RESPONSIVE MOBILE (a11y & UX)
