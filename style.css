@@ -559,13 +559,22 @@ body {
   color: #ffffff;
 }
 
-/* CANVAS CONTAINER */
+/* =========================================
+   CANVAS CONTAINER (DIKOREKSI UNTUK GSAP)
+   ========================================= */
 .scroll-section {
   position: relative;
-  height: 300vh;
+
+  /* FAKTA: Wajib 100vh. Jangan gunakan 300vh karena 
+     jarak scroll sudah ditangani oleh end: "+=8000" di GSAP */
+  height: 100vh;
 }
+
 .video-container {
-  position: sticky;
+  /* FAKTA: Wajib relative. Haram hukumnya menggunakan 'sticky' 
+     pada elemen yang sudah di-pin (dikunci) oleh GSAP */
+  position: absolute;
+
   top: 0;
   width: 100%;
   height: 100vh;
@@ -1050,7 +1059,7 @@ p {
   animation: textSpin 10s linear infinite;
 }
 
-.cursor-spin svg {  
+.cursor-spin svg {
   width: 100%;
   height: 100%;
   fill: #ffffff; /* Menggunakan warna merah aksen utama Anda */
@@ -1075,6 +1084,108 @@ p {
     display: none !important;
   }
 }
+
+/* =========================================
+   KOREKSI MUSEUM DOORS (SWISS STYLE)
+   ========================================= */
+.museum-door {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100vh;
+  background-color: #050505;
+  z-index: 20;
+  will-change: transform;
+  overflow: hidden; /* FAKTA: Mencegah tipografi raksasa tumpah keluar pintu */
+}
+
+/* --- ARSITEKTUR PINTU KIRI --- */
+.left-door {
+  left: 0;
+  border-right: 1px solid rgba(228, 10, 62, 0.3); /* Garis potong merah */
+  position: relative;
+}
+
+.sector-label {
+  position: absolute;
+  bottom: 18vh;
+  left: 4vw;
+  font-family: "Space Mono", monospace, sans-serif;
+  color: #e40a3e;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  font-weight: 600;
+  z-index: 30;
+}
+
+.giant-index {
+  position: absolute;
+  bottom: -4vh; /* Ditarik sedikit ke bawah lantai agar terasa terpotong brutal */
+  right: 2vw; /* Merapat ke garis tengah tapi diberi batas aman */
+  font-family: "Cinzel", serif;
+  font-size: 60vh; /* Skala raksasa berbasis tinggi layar */
+  line-height: 0.8;
+  color: rgba(255, 255, 255, 0.03); /* Transparansi ekstrem (3%), nyaris gaib */
+  pointer-events: none;
+}
+
+/* --- ARSITEKTUR PINTU KANAN --- */
+.right-door {
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* FAKTA: Rata kiri mutlak (Karakteristik Swiss Style) */
+
+  /* Memberi jarak pernapasan yang jauh dari garis merah (6vw) */
+  padding-left: 6vw;
+  padding-right: 4vw;
+}
+
+.right-content-wrapper {
+  max-width: 450px; /* Mengunci lebar teks agar turun ke baris baru dengan proporsional */
+}
+
+.door-title {
+  font-family: "Cinzel", serif;
+  font-size: clamp(3rem, 5vw, 5.5rem);
+  color: #ffffff;
+  margin: 0 0 20px 0;
+  line-height: 1;
+  letter-spacing: -1px; /* Kerenggangan ketat ala tipografi premium */
+}
+
+.door-subtext {
+  font-family: "Inter", sans-serif;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  line-height: 1.7;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* Tipografi Pintu Kiri */
+.door-title {
+  font-family: "Cinzel", serif;
+  /* Skala diperkecil sedikit agar muat di dalam separuh layar (50vw) */
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  color: #ffffff;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: 2px;
+}
+
+/* Tipografi Pintu Kanan */
+.door-subtext {
+  font-family: "Inter", sans-serif;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+  line-height: 1.6;
+  font-weight: 300;
+  max-width: 400px; /* FAKTA: Membatasi lebar agar teks turun ke baris baru dengan rapi */
+  margin: 0;
+}
+
 /* =========================================
    OPTIMASI RESPONSIVE MOBILE (a11y & UX)
    ========================================= */

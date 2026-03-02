@@ -384,20 +384,138 @@ function bukaTab(elemenTombol, namaTab) {
   elemenTombol.classList.add("active");
 }
 
+// setupCanvasScrubbing(
+//   "museum-canvas",
+//   "#museum-section",
+//   (i) =>
+//     `./museum-compressed/frame_${(i + 1).toString().padStart(3, "0")}.webp`,
+//   240,
+// );
+
+// ==========================================
+// 6. SETUP MUSEUM GRAND OPENING
+// ==========================================
+function setupMuseumGrandOpening() {
+  const canvas = document.getElementById("museum-canvas");
+  if (!canvas) return;
+  const context = canvas.getContext("2d");
+  const frameCount = 240; // Sesuaikan dengan total gambar museum Anda
+  const images = [];
+  const canvasObj = { frame: 0 };
+  let isLoaded = false;
+
+  function render() {
+    const targetFrame = Math.round(canvasObj.frame);
+    let bestFrame = targetFrame;
+    while (
+      bestFrame >= 0 &&
+      (!images[bestFrame] || !images[bestFrame].complete)
+    ) {
+      bestFrame--;
+    }
+    if (bestFrame < 0) return;
+
+    const img = images[bestFrame];
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const ratio = Math.max(
+      canvas.width / img.width,
+      canvas.height / img.height,
+    );
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(
+      img,
+      0,
+      0,
+      img.width,
+      img.height,
+      (canvas.width - img.width * ratio) / 2,
+      (canvas.height - img.height * ratio) / 2,
+      img.width * ratio,
+      img.height * ratio,
+    );
+  }
+
+  window.addEventListener("resize", render);
+
+  // Pre-load logic (Sama seperti sebelumnya)
+  const firstImg = new Image();
+  firstImg.src = `./museum-compressed/frame_001.webp`;
+  firstImg.onload = () => {
+    images[0] = firstImg;
+    render();
+  };
+
+  ScrollTrigger.create({
+    trigger: "#museum-section",
+    start: "top 200%",
+    onEnter: () => {
+      if (isLoaded) return;
+      isLoaded = true;
+      let f = 1;
+      function loadNext() {
+        if (f >= frameCount) return;
+        const index = f++;
+        const img = new Image();
+        img.src = `./museum-compressed/frame_${(index + 1).toString().padStart(3, "0")}.webp`;
+        img.onload = () => {
+          images[index] = img;
+          loadNext();
+        };
+        img.onerror = () => loadNext();
+      }
+      for (let i = 0; i < 5; i++) loadNext();
+    },
+  });
+
+  // ------------------------------------------
+  // MASTER TIMELINE GSAP (KOREOGRAFI ABSOLUT)
+  // ------------------------------------------
+  let tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#museum-section",
+      start: "top top",
+      end: "+=8000", // Panjang scroll total. Perbesar jika ingin lebih lambat.
+      pin: true,
+      scrub: 1, // Smoothing agar pintu dan kanvas tidak kaku
+    },
+  });
+
+  // FASE 2: Pintu kiri bergeser 100% ke kiri, Pintu kanan 100% ke kanan
+  // Menggunakan label "split" agar kedua pintu bergerak tepat di waktu yang sama
+  tl.to(
+    ".left-door",
+    { xPercent: -100, duration: 2, ease: "power2.inOut" },
+    "split",
+  );
+  tl.to(
+    ".right-door",
+    { xPercent: 100, duration: 2, ease: "power2.inOut" },
+    "split",
+  );
+
+  // FASE 3: Putar gambar kanvas museum (berjalan setelah pintu terbuka penuh)
+  tl.to(canvasObj, {
+    frame: frameCount - 1,
+    snap: "frame",
+    ease: "none",
+    duration: 6, // Durasi lebih lama agar seimbang dengan pergerakan kanvas
+    onUpdate: render,
+  });
+
+  tl.to({}, { duration: 2 });
+}
+
 // JANGAN LUPA PANGGIL FUNGSINYA
 setupTextReveal();
 
 // EKSEKUSI SEMUA
 
 setupDualityScrapbook();
+
+// Panggil fungsinya
+setupMuseumGrandOpening();
 setupVangoghSequence();
-setupCanvasScrubbing(
-  "museum-canvas",
-  "#museum-section",
-  (i) =>
-    `./museum-compressed/frame_${(i + 1).toString().padStart(3, "0")}.webp`,
-  240,
-);
 
 // ==========================================
 // KONTROL KOORDINAT CIRCULAR CURSOR
