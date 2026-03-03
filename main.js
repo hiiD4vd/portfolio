@@ -392,14 +392,11 @@ function bukaTab(elemenTombol, namaTab) {
 //   240,
 // );
 
-// ==========================================
-// 6. SETUP MUSEUM GRAND OPENING
-// ==========================================
 function setupMuseumGrandOpening() {
   const canvas = document.getElementById("museum-canvas");
   if (!canvas) return;
   const context = canvas.getContext("2d");
-  const frameCount = 240; // Sesuaikan dengan total gambar museum Anda
+  const frameCount = 240;
   const images = [];
   const canvasObj = { frame: 0 };
   let isLoaded = false;
@@ -438,7 +435,6 @@ function setupMuseumGrandOpening() {
 
   window.addEventListener("resize", render);
 
-  // Pre-load logic (Sama seperti sebelumnya)
   const firstImg = new Image();
   firstImg.src = `./museum-compressed/frame_001.webp`;
   firstImg.onload = () => {
@@ -469,20 +465,19 @@ function setupMuseumGrandOpening() {
   });
 
   // ------------------------------------------
-  // MASTER TIMELINE GSAP (KOREOGRAFI ABSOLUT)
+  // MASTER TIMELINE: JEDA VERTIKAL + ANIMASI BANTU-IN
   // ------------------------------------------
   let tl = gsap.timeline({
     scrollTrigger: {
       trigger: "#museum-section",
       start: "top top",
-      end: "+=8000", // Panjang scroll total. Perbesar jika ingin lebih lambat.
+      end: "+=60000", // FAKTA: Durasi scroll sangat panjang untuk menampung banyak gambar
       pin: true,
-      scrub: 1, // Smoothing agar pintu dan kanvas tidak kaku
+      scrub: 1,
     },
   });
 
-  // FASE 2: Pintu kiri bergeser 100% ke kiri, Pintu kanan 100% ke kanan
-  // Menggunakan label "split" agar kedua pintu bergerak tepat di waktu yang sama
+  // 1. Pintu Terbelah
   tl.to(
     ".left-door",
     { xPercent: -100, duration: 2, ease: "power2.inOut" },
@@ -494,15 +489,54 @@ function setupMuseumGrandOpening() {
     "split",
   );
 
-  // FASE 3: Putar gambar kanvas museum (berjalan setelah pintu terbuka penuh)
-  tl.to(canvasObj, {
-    frame: frameCount - 1,
-    snap: "frame",
-    ease: "none",
-    duration: 6, // Durasi lebih lama agar seimbang dengan pergerakan kanvas
-    onUpdate: render,
-  });
+  // 2. Pemindaian DOM (Looping Proyek)
+  const panels = document.querySelectorAll(".project-bantuin-style");
+  const totalPanels = panels.length;
 
+  if (totalPanels > 0) {
+    const frameStep = Math.floor((frameCount - 1) / (totalPanels + 1));
+    let currentFrameTarget = 0;
+
+    panels.forEach((panel) => {
+      currentFrameTarget += frameStep;
+
+      // FASE A: Museum berjalan ke titik perhentian, lalu DIAM TOTAL
+      tl.to(canvasObj, {
+        frame: currentFrameTarget,
+        snap: "frame",
+        ease: "none",
+        duration: 4,
+        onUpdate: render,
+      });
+
+      // FASE B: Animasi Kloningan Bantu-In (Ditarik lurus ke atas tanpa henti)
+      tl.to(panel, {
+        // Matematika mutlak: Menarik panel dari bawah lantai sampai melewati atap layar
+        y: () => -(window.innerHeight + panel.offsetHeight),
+        ease: "none",
+        duration: 50, // Durasi panjang agar pengguna bisa baca sambil scroll santai
+      });
+    });
+
+    // FASE C: Setelah semua proyek habis, museum sisa jalan ke ujung lorong
+    tl.to(canvasObj, {
+      frame: frameCount - 1,
+      snap: "frame",
+      ease: "none",
+      duration: 4,
+      onUpdate: render,
+    });
+  } else {
+    tl.to(canvasObj, {
+      frame: frameCount - 1,
+      snap: "frame",
+      ease: "none",
+      duration: 10,
+      onUpdate: render,
+    });
+  }
+
+  // 3. Buffer Mutlak
   tl.to({}, { duration: 2 });
 }
 

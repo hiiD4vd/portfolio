@@ -858,6 +858,198 @@ p {
   margin-right: 0.3em;
   will-change: color;
 }
+/* =========================================
+   ARSITEKTUR MUTLAK KLONINGAN BANTU-IN
+   ========================================= */
+.project-bantuin-style {
+  position: absolute;
+  top: 100vh; /* FAKTA: Bersembunyi 1 layar penuh di bawah */
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 10;
+  will-change: transform;
+}
+
+/* =========================================
+   ARSITEKTUR CERTIFICATE VAULT
+   ========================================= */
+#certificate-vault {
+  width: 100%;
+  min-height: 100vh;
+
+  /* Panggilan ke dinding merah Anda */
+  background-image: url("background-merah.webp");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8vw;
+  padding: 10vh 8vw;
+  position: relative;
+  z-index: 10;
+}
+
+/* KONTROL TIPOGRAFI DINDING */
+.cert-text-panel {
+  width: 20%;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* ================= KONTROL KOORDINAT TEKS ================= */
+  /* Nilai pertama (X): Positif geser ke kanan, Negatif (-) geser ke kiri */
+  /* Nilai kedua (Y): Positif geser ke bawah, Negatif (-) geser ke atas */
+  transform: translateX(-4vw);
+}
+
+.cert-label {
+  font-family: "Space Mono", monospace;
+  color: #ffffff;
+  font-size: 0.9rem;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.cert-title {
+  font-family: "Cinzel", serif;
+  font-size: clamp(2.5rem, 4vw, 4.5rem);
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 25px;
+  text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.cert-desc {
+  font-family: "Inter", sans-serif;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 320px;
+}
+
+/* KONTROL PRESISI BINGKAI TUNGGAL */
+.cert-frame-wrapper {
+  width: 70%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transform: translateX(-6vw) translateY(2vh);
+}
+
+.frame-asset {
+  width: 100%;
+  max-height: auto;
+  object-fit: contain;
+  /* FAKTA VISUAL: Bayangan pekat ke arah kiri bawah untuk ilusi 3D murni */
+  filter: drop-shadow(-20px 30px 40px rgba(0, 0, 0, 0.8));
+}
+
+/* =========================================
+   ARSITEKTUR PANEL KANAN (METADATA)
+   ========================================= */
+.cert-meta-panel {
+  width: 22%;
+  /* min-width: 250px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 25px; /* Jarak antar informasi */
+  /* Menggeser panel ini agar pas berada di bawah cahaya lampu */
+  transform: translateX(-4vw);
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-label {
+  font-family: "Space Mono", monospace;
+  color: rgba(255, 255, 255, 0.6); /* Warna merah aksen Anda */
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.meta-value {
+  font-family: "Inter", sans-serif;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* TOMBOL VERIFIKASI BRUTALIST */
+.verify-btn {
+  margin-top: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: #ffffff;
+  font-family: "Space Mono", monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  /* Mencegah interaksi kursor meleset */
+  pointer-events: auto;
+}
+
+.btn-arrow {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.verify-btn:hover {
+  background: #ffffff;
+  color: #050505;
+  border-color: #ffffff;
+}
+
+.verify-btn:hover .btn-arrow {
+  transform: translateX(5px); /* Panah melesat ke kanan saat disorot */
+}
+
+/* PENYESUAIAN LEBAR KOLOM TENGAH */
+/* Cari .cert-frame-wrapper yang sudah ada, dan pastikan width-nya sekitar 45% 
+   agar memberi ruang untuk panel kiri (30%) dan kanan (20%) */
+/* .cert-frame-wrapper {
+  width: 45%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* OPTIMASI MOBILE ABSOLUT */
+@media (max-width: 768px) {
+  #certificate-vault {
+    flex-direction: column;
+    text-align: center;
+    gap: 5vh;
+    padding-top: 15vh;
+  }
+  .cert-text-panel {
+    width: 100%;
+    align-items: center;
+  }
+  .cert-frame-wrapper {
+    width: 90%;
+  }
+}
 
 /* =========================================
    ARSITEKTUR INFINITE MARQUEE BANNER
