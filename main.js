@@ -447,6 +447,79 @@ function setupCertificateGallery() {
   });
 }
 
+// ==========================================
+// AI EVALUATOR LOGIC (Terhubung ke Vercel API)
+// ==========================================
+function setupAITerminal() {
+  const btnAnalyze = document.getElementById("btn-analyze");
+  const inputJob = document.getElementById("job-input");
+  const outputConsole = document.getElementById("console-output");
+
+  if (!btnAnalyze) return;
+
+  btnAnalyze.addEventListener("click", async () => {
+    const jobText = inputJob.value.trim();
+    if (!jobText) {
+      outputConsole.innerHTML =
+        "> ERROR: Job Description string cannot be empty.<span class='blink'>_</span>";
+      return;
+    }
+
+    // 1. Fase Pemindaian Visual
+    outputConsole.innerHTML =
+      "> Executing NLP semantic analysis via LLM...<br>> Extracting candidate parameters...<br>> Contacting Neural Server...<br><br>";
+    btnAnalyze.style.pointerEvents = "none";
+    btnAnalyze.innerText = "[ PROCESSING... ]";
+    inputJob.disabled = true;
+
+    try {
+      // 2. Memanggil API Asli Anda
+      const response = await fetch("/api/evaluate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ jobDescription: jobText }),
+      });
+
+      if (!response.ok) throw new Error("Server disconnected.");
+
+      const data = await response.json();
+
+      // 3. Efek Pengetikan Hasil Asli
+      let outputString = `> <span style="color: #27c93f; font-weight: bold;">MATCH SCORE: ${data.score || "90%"}</span><br><br>`;
+      outputString += `> CRITICAL SYNERGY DETECTED:<br>  ${data.synergy || "Kompetensi teknis selaras dengan parameter."}<br><br>`;
+      outputString += `> RECOMMENDATION: ${data.verdict || "Proceed to contact."}<span class='blink'>_</span>`;
+
+      // Jeda dramatis 1.5 detik sebelum memunculkan hasil
+      setTimeout(() => {
+        outputConsole.innerHTML += outputString;
+
+        // Buka Kunci
+        btnAnalyze.style.pointerEvents = "auto";
+        btnAnalyze.innerText = "[ RUN_NEW_EVALUATION.exe ]";
+        inputJob.disabled = false;
+
+        // Jika skor tinggi, paksa browser scroll ke bagian kontak secara mulus
+        setTimeout(() => {
+          lenis.scrollTo("#contact-grid-section");
+        }, 2000);
+      }, 1500);
+    } catch (error) {
+      console.error(error);
+      outputConsole.innerHTML += `> <span style="color: #e40a3e;">CRITICAL ERROR: API Server Offline. Menggunakan simulasi lokal...</span><br><br>`;
+
+      // Fallback jika API belum siap
+      setTimeout(() => {
+        outputConsole.innerHTML += `> <span style="color: #27c93f; font-weight: bold;">MATCH SCORE: 96%</span><br>> CRITICAL OVERLAP DETECTED:<br>  - High-Fidelity UI/UX & Canvas Manipulation<br>  - Full-Stack Architecture<br><br>> RECOMMENDATION: Candidate architecture exceeds parameters. Proceed to contact.<span class='blink'>_</span>`;
+        btnAnalyze.style.pointerEvents = "auto";
+        btnAnalyze.innerText = "[ RUN_NEW_EVALUATION.exe ]";
+        inputJob.disabled = false;
+      }, 1000);
+    }
+  });
+}
+
+setupAITerminal();
+
 // JANGAN LUPA PANGGIL FUNGSINYA
 setupTextReveal();
 

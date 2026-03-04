@@ -807,6 +807,312 @@ p {
   font-weight: 600;
 }
 /* =========================================
+   ARSITEKTUR BAB 05: AI TERMINAL (Gambar Klasik)
+   ========================================= */
+#ai-terminal-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  /* GANTI DENGAN NAMA GAMBAR LUKISAN RENAISSANCE ANDA */
+  background-image: url("renaissance.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Parallax alami */
+  z-index: 20;
+}
+
+/* OVERLAY GELAP PEKAT 88% */
+#ai-terminal-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 5, 5, 0.88);
+  z-index: 1;
+}
+
+.terminal-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.evaluator-zone {
+  padding: 15vh 5vw 15vh 8vw;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.zone-label {
+  font-family: "Space Mono", monospace;
+  color: #e40a3e;
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.terminal-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.jd-input {
+  width: 100%;
+  height: 150px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-family: "Space Mono", monospace;
+  font-size: 0.95rem;
+  padding: 15px;
+  resize: none;
+  outline: none;
+  transition: border-color 0.3s ease;
+  line-height: 1.5;
+}
+
+.jd-input:focus {
+  border-color: #e40a3e;
+}
+
+.brutalist-btn {
+  align-self: flex-start;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  color: #e40a3e;
+  border: 1px solid #e40a3e;
+  padding: 15px 25px;
+  font-family: "Space Mono", monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.brutalist-btn:hover {
+  background: #e40a3e;
+  color: #050505;
+}
+
+.output-console {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  font-family: "Space Mono", monospace;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  overflow-y: auto;
+}
+
+.output-console .blink {
+  animation: blinker 1s linear infinite;
+  color: #e40a3e;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.access-zone {
+  padding: 15vh 8vw 15vh 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.giant-heading {
+  font-family: "Cinzel", serif;
+  font-size: clamp(3rem, 5vw, 5.5rem);
+  line-height: 1;
+  color: #ffffff;
+  letter-spacing: -2px;
+}
+
+/* =========================================
+   ARSITEKTUR BAB 06: KONTAK GRID (Gambar LDR)
+   ========================================= */
+#contact-grid-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  /* GANTI DENGAN NAMA GAMBAR GADIS/LDR ANDA */
+  background-image: url("kontak.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: 20;
+}
+
+/* OVERLAY GELAP PEKAT 85% */
+#contact-grid-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 5, 5, 0.85);
+  z-index: 1;
+}
+
+.giant-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Cinzel", serif;
+  font-size: 22vw;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+  z-index: 2;
+  line-height: 1;
+  letter-spacing: -5px;
+}
+
+.grid-matrix {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 55vh 45vh;
+  height: 100vh;
+  position: relative;
+  z-index: 10;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.cell {
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 3vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition:
+    background-color 0.4s ease,
+    backdrop-filter 0.4s ease;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.cell:nth-child(4),
+.cell:nth-child(6) {
+  border-right: none;
+}
+
+.cell.interactive:hover {
+  background-color: rgba(228, 10, 62, 0.8);
+  backdrop-filter: blur(5px);
+  cursor: none;
+}
+
+.cell-index {
+  font-family: "Space Mono", monospace;
+  font-size: 0.8rem;
+  margin-bottom: auto;
+  color: #e40a3e;
+  font-weight: 700;
+  letter-spacing: 2px;
+  transition: color 0.4s ease;
+}
+
+.cell.interactive:hover .cell-index {
+  color: #050505;
+}
+
+.cell-title {
+  font-family: "Cinzel", serif;
+  font-size: clamp(2rem, 3vw, 3.5rem);
+  line-height: 1;
+  margin-bottom: 15px;
+}
+
+.cell-desc {
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  opacity: 0.7;
+  line-height: 1.5;
+}
+
+.cell.statement-room {
+  grid-column: span 2;
+  justify-content: center;
+}
+
+.statement-text {
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.5rem, 2vw, 2.5rem);
+  line-height: 1.4;
+  max-width: 85%;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.statement-text .highlight {
+  color: #e40a3e;
+  font-weight: 600;
+}
+
+.cell.accent-cell {
+  background-color: rgba(5, 5, 5, 0.6);
+  backdrop-filter: blur(10px);
+}
+.cell.accent-cell:hover {
+  background-color: #ffffff;
+  color: #050505;
+}
+.cell.accent-cell:hover .cell-desc {
+  color: #050505;
+  font-weight: 500;
+}
+
+/* OPTIMASI MOBILE */
+@media (max-width: 900px) {
+  .terminal-container {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .evaluator-zone {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    min-height: 70vh;
+  }
+  .grid-matrix {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    height: auto;
+  }
+  .cell.statement-room {
+    grid-column: span 2;
+    padding: 10vh 5vw;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .cell {
+    height: 250px;
+  }
+  .cell:nth-child(4),
+  .cell:nth-child(6) {
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+  }
+}
+/* =========================================
    ARSITEKTUR TEXT REVEAL SCRUBBING (PROPORSI ABSOLUT)
    ========================================= */
 .reveal-section {
