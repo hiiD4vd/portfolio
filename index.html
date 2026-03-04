@@ -84,26 +84,26 @@
     <nav class="sidebar">
       <ul>
         <li>
-          <a href="#hero-section"
-            ><span class="nav-text">The Awakening</span>
+          <a href="#hero-section-clean"
+            ><span class="nav-text">Prologue</span>
             <span class="nav-num">I</span></a
           >
         </li>
         <li>
-          <a href="#duality-section"
-            ><span class="nav-text">The Duality</span>
+          <a href="#duality-scrapbook-sequence"
+            ><span class="nav-text">The Architect</span>
             <span class="nav-num">II</span></a
           >
         </li>
         <li>
           <a href="#museum-section"
-            ><span class="nav-text">SaaS ISP</span>
+            ><span class="nav-text">Exhibition</span>
             <span class="nav-num">III</span></a
           >
         </li>
         <li>
-          <a href="#vangogh-section"
-            ><span class="nav-text">Bantu-In</span>
+          <a href="#certificate-vault"
+            ><span class="nav-text">Achievements</span>
             <span class="nav-num">IV</span></a
           >
         </li>
@@ -806,54 +806,31 @@
           </p>
         </div>
 
-        <div
-          class="image-section"
-          style="
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            padding-left: calc(2vw + 150px + 40px);
-            padding-right: 2vw;
-            padding-bottom: 20vh;
-            gap: 40px;
-          "
-        >
+        <div class="image-section project-gallery-wrapper">
           <img
             src="bantu-in-slide-1.webp"
             alt="Presentasi Bantu-In 1"
-            style="
-              width: 100%;
-              border-radius: 0px 0 0 0px;
-              box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
-            "
+            class="project-gallery-img"
           />
           <img
             src="bantu-in-slide-2.webp"
             alt="Presentasi Bantu-In 2"
-            style="
-              width: 100%;
-              border-radius: 0px 0 0 0px;
-              box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
-            "
+            class="project-gallery-img"
           />
           <img
             src="bantu-in-slide-3.webp"
             alt="Presentasi Bantu-In 3"
-            style="
-              width: 100%;
-              border-radius: 0px 0 0 0px;
-              box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
-            "
+            class="project-gallery-img"
           />
           <img
             src="bantu-in-slide-4.webp"
             alt="Presentasi Bantu-In 4"
-            style="
-              width: 100%;
-              border-radius: 0px 0 0 0px;
-              box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
-            "
+            class="project-gallery-img"
+          />
+          <img
+            src="bantu-in-slide-5.webp"
+            alt="Presentasi Bantu-In 5"
+            class="project-gallery-img"
           />
         </div>
       </div>
@@ -866,72 +843,59 @@
           </p>
         </div>
 
-        <div
-          class="image-section"
-          style="
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            padding-left: calc(2vw + 150px + 40px);
-            padding-right: 2vw;
-            padding-bottom: 20vh;
-            gap: 40px;
-          "
-        >
+        <div class="image-section project-gallery-wrapper">
           <img
-            src="gambar-saas-1.jpg"
+            src="saas-slide-1.webp"
             alt="SaaS ISP 1"
-            style="
-              width: 100%;
-              border-radius: 0px 0 0 0px;
-              box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
-            "
+            class="project-gallery-img"
           />
           <img
-            src="gambar-saas-2.jpg"
+            src="saas-slide-2.webp"
             alt="SaaS ISP 2"
-            style="
-              width: 100%;
-              border-radius: 0px 0 0 0px;
-              box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
-            "
+            class="project-gallery-img"
           />
         </div>
       </div>
 
       <div class="project-panel project-bantuin-style">
         <div class="vangogh-text-container">
-          <h2 class="vangogh-title">You RISE</h2>
+          <h2 class="vangogh-title">Sudah Pintar</h2>
           <p class="body-text-hero" style="max-width: 800px">
-            <span class="drop-cap-hero">R</span>ekayasa antarmuka dengan
-            estetika Swiss Minimalist.
+            <span class="drop-cap-hero">A</span>plikasi kasir pintar
+            terintegrasi yang dirancang untuk mendigitalisasi operasional bisnis
+            UMKM.
           </p>
         </div>
 
-        <div
-          class="image-section"
-          style="
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            padding-left: calc(2vw + 150px + 40px);
-            padding-right: 2vw;
-            padding-bottom: 20vh;
-            gap: 40px;
-          "
-        >
+        <div class="image-section project-gallery-wrapper">
           <img
-            src="gambar-rise-1.jpg"
-            alt="You RISE"
-            style="
-              width: 100%;
-              border-radius: 0px 0 0 0px;
-              box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
-            "
+            src="supin-slide-1.webp"
+            alt="Sudah Pintar 1"
+            class="project-gallery-img"
+          />
+          <img
+            src="supin-slide-2.webp"
+            alt="Sudah Pintar 2"
+            class="project-gallery-img"
           />
         </div>
+      </div>
+      <div class="skip-btn-container">
+        <button
+          class="verify-btn skip-btn"
+          onclick="lenis.scrollTo('#certificate-vault')"
+        >
+          NEXT // ACHIEVEMENTS
+          <svg viewBox="0 0 24 24" class="btn-arrow">
+            <path
+              d="M5 12H19M19 12L12 5M19 12L12 19"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="square"
+              fill="none"
+            />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -1053,98 +1017,609 @@
     </div>
 
     <section id="certificate-vault">
-      <div class="cert-text-panel">
-        <h3 class="cert-label">ARCHIVE // ACHIEVEMENT</h3>
-        <h1 class="cert-title">DICODING<br />GRADUATE</h1>
-        <p class="cert-desc">
-          Validasi komputasional terhadap algoritma prediktif dan pemrosesan
-          data. Fokus pada prapemrosesan dataset, arsitektur model dasar, serta
-          evaluasi metrik akurasi. Fondasi esensial untuk menginjeksi
-          kapabilitas AI Generatif ke dalam ekosistem perangkat lunak.
-        </p>
-      </div>
-
-      <div class="cert-frame-wrapper">
-        <img
-          src="sertifikat-ml.webp"
-          alt="Sertifikat Kelulusan"
-          class="frame-asset"
-        />
-      </div>
-      <div class="cert-meta-panel">
-        <div class="meta-item">
-          <span class="meta-label">// CREDENTIAL ID</span>
-          <span class="meta-value">ERZR2Y10QPYV</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">// ISSUED BY</span>
-          <span class="meta-value">Dicoding Indonesia</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">// ACQUIRED SKILLS</span>
-          <span class="meta-value"
-            >Python • Data Analysis • Machine Learning</span
-          >
-        </div>
-
-        <a
-          href="https://dicoding.com/certificates/ERZR2Y10QPYV"
-          target="_blank"
-          class="verify-btn"
-        >
-          VERIFY AUTHENTICITY
-          <svg viewBox="0 0 24 24" class="btn-arrow">
-            <path
-              d="M5 12H19M19 12L12 5M19 12L12 19"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="square"
-            />
-          </svg>
-        </a>
-      </div>
-    </section>
-    <section id="vangogh-sequence" style="width: 100%; background: #050505">
-      <div
-        id="vangogh-pin-target"
-        style="width: 100%; height: 100vh; position: relative; overflow: hidden"
-      >
-        <canvas
-          id="vangogh-canvas"
-          style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-          "
-        ></canvas>
-
-        <div
-          id="vangogh-content-wrapper"
-          style="
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-          "
-        >
-          <!-- <div class="vangogh-text-container">
-            <h2 class="vangogh-title" style="color: rgba(255, 255, 255, 0.3)">
-              ENCRYPTED
-            </h2>
-            <p
-              class="body-text-hero"
-              style="max-width: 800px; color: rgba(255, 255, 255, 0.3)"
-            >
-              // Ruang kanvas ini dicadangkan untuk entri log dan arsip
-              berikutnya.
+      <div class="cert-track">
+        <div class="cert-panel">
+          <div class="cert-text-panel">
+            <h3 class="cert-label">ARCHIVE // BOOTCAMP</h3>
+            <h1 class="cert-title">DICODING<br />GRADUATE</h1>
+            <p class="cert-desc">
+              Eksplorasi praktis dalam melakukan integrasi model Generative AI
+              skala enterprise. Sertifikasi ini memperkuat keahlian saya
+              memanfaatkan layanan komputasi awan Microsoft Azure untuk
+              membangun aplikasi cerdas yang aman dan terukur. Fondasi kuat
+              untuk mengarsiteki solusi AI di tingkat industri nyata.
             </p>
-          </div> -->
+          </div>
+
+          <div class="cert-frame-wrapper">
+            <img
+              src="sertifikat-genai.webp"
+              alt="Sertifikat GenAI"
+              class="frame-asset"
+            />
+          </div>
+
+          <div class="cert-meta-panel">
+            <div class="meta-item">
+              <span class="meta-label">// CREDENTIAL ID</span>
+              <span class="meta-value">GRX5JWLMKX0M</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ISSUED BY</span>
+              <span class="meta-value">Dicoding Indonesia</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ACQUIRED SKILLS</span>
+              <span class="meta-value"
+                >Azure OpenAI • Cloud Computing • AI Architecture • Generative
+                AI</span
+              >
+            </div>
+
+            <a
+              href="https://www.dicoding.com/certificates/GRX5JWLMKX0M"
+              target="_blank"
+              class="verify-btn"
+            >
+              VERIFY AUTHENTICITY
+              <svg viewBox="0 0 24 24" class="btn-arrow">
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="square"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="cert-panel">
+          <div class="cert-text-panel">
+            <h3 class="cert-label">ARCHIVE // ACHIEVEMENT</h3>
+            <h1 class="cert-title">DICODING<br />GRADUATE</h1>
+            <p class="cert-desc">
+              Eksplorasi intensif dalam arsitektur jaringan saraf tiruan (Neural
+              Networks). Sertifikasi ini memperkuat pemahaman teknis saya
+              mengenai algoritma propagasi balik, CNN untuk pengolahan citra,
+              hingga optimasi model. Fondasi tingkat lanjut untuk merancang
+              aplikasi cerdas dengan performa komputasi tinggi.
+            </p>
+          </div>
+
+          <div class="cert-frame-wrapper">
+            <img
+              src="sertifikat-dl.webp"
+              alt="Sertifikat Kelulusan"
+              class="frame-asset"
+            />
+          </div>
+
+          <div class="cert-meta-panel">
+            <div class="meta-item">
+              <span class="meta-label">// CREDENTIAL ID</span>
+              <span class="meta-value">ERZRL4ELQZYV</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ISSUED BY</span>
+              <span class="meta-value">Dicoding Indonesia</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ACQUIRED SKILLS</span>
+              <span class="meta-value"
+                >Deep Learning • Neural Networks • TensorFlow/Keras • Image
+                Classification</span
+              >
+            </div>
+
+            <a
+              href="https://www.dicoding.com/certificates/ERZRL4ELQZYV"
+              target="_blank"
+              class="verify-btn"
+            >
+              VERIFY AUTHENTICITY
+              <svg viewBox="0 0 24 24" class="btn-arrow">
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="square"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="cert-panel">
+          <div class="cert-text-panel">
+            <h3 class="cert-label">ARCHIVE // BOOTCAMP</h3>
+            <h1 class="cert-title">DICODING<br />GRADUATE</h1>
+            <p class="cert-desc">
+              Eksplorasi fundamental dalam algoritma prediktif dan pemrosesan
+              data. Sertifikasi ini memperkuat pemahaman saya pada
+              pra-pemrosesan dataset, perancangan arsitektur model dasar, hingga
+              evaluasi metrik akurasi. Sebuah fondasi esensial bagi saya sebagai
+              software engineer untuk mengintegrasikan fitur kecerdasan buatan
+              ke dalam aplikasi.
+            </p>
+          </div>
+
+          <div class="cert-frame-wrapper">
+            <img
+              src="sertifikat-ml.webp"
+              alt="Sertifikat DICODING"
+              class="frame-asset"
+            />
+          </div>
+
+          <div class="cert-meta-panel">
+            <div class="meta-item">
+              <span class="meta-label">// CREDENTIAL ID</span>
+              <span class="meta-value">ERZR2Y1OQPYV</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ISSUED BY</span>
+              <span class="meta-value">Dicoding Indonesia</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ACQUIRED SKILLS</span>
+              <span class="meta-value"
+                >Python • Data Analysis • Machine Learning • Predictive
+                Modeling</span
+              >
+            </div>
+
+            <a
+              href="https://www.dicoding.com/certificates/ERZR2Y1OQPYV"
+              target="_blank"
+              class="verify-btn"
+            >
+              VERIFY AUTHENTICITY
+              <svg viewBox="0 0 24 24" class="btn-arrow">
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="square"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="cert-panel">
+          <div class="cert-text-panel">
+            <h3 class="cert-label">ARCHIVE // BOOTCAMP</h3>
+            <h1 class="cert-title">DICODING<br />GRADUATE</h1>
+            <p class="cert-desc">
+              Eksplorasi taktis dalam berkomunikasi dan menginstruksikan Large
+              Language Models (LLM). Sertifikasi ini memperkuat kemampuan saya
+              menyusun prompt yang presisi untuk mempercepat siklus pengembangan
+              perangkat lunak. Keterampilan esensial untuk memaksimalkan
+              produktivitas dan kolaborasi dengan asisten AI Generatif.
+            </p>
+          </div>
+
+          <div class="cert-frame-wrapper">
+            <img
+              src="sertifikat-sd.webp"
+              alt="Sertifikat DICODING"
+              class="frame-asset"
+            />
+          </div>
+
+          <div class="cert-meta-panel">
+            <div class="meta-item">
+              <span class="meta-label">// CREDENTIAL ID</span>
+              <span class="meta-value">JMZVVLDNRZN9</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ISSUED BY</span>
+              <span class="meta-value">Dicoding Indonesia</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ACQUIRED SKILLS</span>
+              <span class="meta-value"
+                >Prompt Engineering • LLM Utilization • Software Productivity •
+                Logic</span
+              >
+            </div>
+
+            <a
+              href="https://www.dicoding.com/certificates/JMZVVLDNRZN9"
+              target="_blank"
+              class="verify-btn"
+            >
+              VERIFY AUTHENTICITY
+              <svg viewBox="0 0 24 24" class="btn-arrow">
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="square"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="cert-panel">
+          <div class="cert-text-panel">
+            <h3 class="cert-label">ARCHIVE // BOOTCAMP</h3>
+            <h1 class="cert-title">DICODING<br />GRADUATE</h1>
+            <p class="cert-desc">
+              Eksplorasi konseptual mengenai kecerdasan buatan dan dampaknya
+              terhadap ekosistem teknologi. Sertifikasi ini memperkuat pemahaman
+              saya tentang berbagai cabang AI, dari sistem pakar hingga machine
+              learning. Pengantar strategis sebelum merancang perangkat lunak
+              yang cerdas dan otomatis.
+            </p>
+          </div>
+
+          <div class="cert-frame-wrapper">
+            <img
+              src="sertifikat-ai.webp"
+              alt="Sertifikat DICODING"
+              class="frame-asset"
+            />
+          </div>
+
+          <div class="cert-meta-panel">
+            <div class="meta-item">
+              <span class="meta-label">// CREDENTIAL ID</span>
+              <span class="meta-value">JMZVV42O3ZN9</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ISSUED BY</span>
+              <span class="meta-value">Dicoding Indonesia</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ACQUIRED SKILLS</span>
+              <span class="meta-value"
+                >AI Concepts • Tech Innovation • System Analysis</span
+              >
+            </div>
+
+            <a
+              href="https://www.dicoding.com/certificates/JMZVV42O3ZN9"
+              target="_blank"
+              class="verify-btn"
+            >
+              VERIFY AUTHENTICITY
+              <svg viewBox="0 0 24 24" class="btn-arrow">
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="square"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="cert-panel">
+          <div class="cert-text-panel">
+            <h3 class="cert-label">ARCHIVE // BOOTCAMP</h3>
+            <h1 class="cert-title">DICODING<br />GRADUATE</h1>
+            <p class="cert-desc">
+              Eksplorasi tingkat lanjut dalam membersihkan, mentransformasi, dan
+              memanipulasi data mentah menjadi format yang terstruktur.
+              Sertifikasi ini memperkuat kemampuan saya dalam melakukan data
+              wrangling secara efisien. Proses esensial sebelum menginjeksi data
+              ke dalam pipeline analitik atau model machine learning.
+            </p>
+          </div>
+
+          <div class="cert-frame-wrapper">
+            <img
+              src="sertifikat-pd.webp"
+              alt="Sertifikat DICODING"
+              class="frame-asset"
+            />
+          </div>
+
+          <div class="cert-meta-panel">
+            <div class="meta-item">
+              <span class="meta-label">// CREDENTIAL ID</span>
+              <span class="meta-value">L4PQ29L2OZO1</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ISSUED BY</span>
+              <span class="meta-value">Dicoding Indonesia</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ACQUIRED SKILLS</span>
+              <span class="meta-value"
+                >Data Wrangling • Pandas • Data Transformation</span
+              >
+            </div>
+
+            <a
+              href="https://www.dicoding.com/certificates/L4PQ29L2OZO1"
+              target="_blank"
+              class="verify-btn"
+            >
+              VERIFY AUTHENTICITY
+              <svg viewBox="0 0 24 24" class="btn-arrow">
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="square"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="cert-panel">
+          <div class="cert-text-panel">
+            <h3 class="cert-label">ARCHIVE // BOOTCAMP</h3>
+            <h1 class="cert-title">DICODING<br />GRADUATE</h1>
+            <p class="cert-desc">
+              Eksplorasi fundamental dalam mengubah kumpulan data kompleks
+              menjadi narasi visual yang mudah dipahami. Sertifikasi ini
+              memperkuat kemampuan saya merancang grafik dan dashboard yang
+              informatif. Keterampilan krusial untuk mengkomunikasikan insight
+              dan mendukung pengambilan keputusan berbasis data.
+            </p>
+          </div>
+
+          <div class="cert-frame-wrapper">
+            <img
+              src="sertifikat-vd.webp"
+              alt="Sertifikat DICODING"
+              class="frame-asset"
+            />
+          </div>
+
+          <div class="cert-meta-panel">
+            <div class="meta-item">
+              <span class="meta-label">// CREDENTIAL ID</span>
+              <span class="meta-value">6RPNGG569Z2M</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ISSUED BY</span>
+              <span class="meta-value">Dicoding Indonesia</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ACQUIRED SKILLS</span>
+              <span class="meta-value"
+                >Data Visualization • Matplotlib/Seaborn • Data
+                Storytelling</span
+              >
+            </div>
+
+            <a
+              href="https://www.dicoding.com/certificates/6RPNGG569Z2M"
+              target="_blank"
+              class="verify-btn"
+            >
+              VERIFY AUTHENTICITY
+              <svg viewBox="0 0 24 24" class="btn-arrow">
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="square"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="cert-panel">
+          <div class="cert-text-panel">
+            <h3 class="cert-label">ARCHIVE // BOOTCAMP</h3>
+            <h1 class="cert-title">DICODING<br />GRADUATE</h1>
+            <p class="cert-desc">
+              Eksplorasi fundamental dalam sintaksis dan logika pemrograman
+              menggunakan Python. Sertifikasi ini memperkuat pemahaman saya
+              tentang struktur data, algoritma dasar, hingga paradigma
+              Object-Oriented Programming (OOP). Fondasi esensial untuk
+              membangun berbagai solusi perangkat lunak analitik.
+            </p>
+          </div>
+
+          <div class="cert-frame-wrapper">
+            <img
+              src="sertifikat-python.webp"
+              alt="Sertifikat DICODING"
+              class="frame-asset"
+            />
+          </div>
+
+          <div class="cert-meta-panel">
+            <div class="meta-item">
+              <span class="meta-label">// CREDENTIAL ID</span>
+              <span class="meta-value">10P843VV8ZQK</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ISSUED BY</span>
+              <span class="meta-value">Dicoding Indonesia</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ACQUIRED SKILLS</span>
+              <span class="meta-value"
+                >Python • Object-Oriented Programming (OOP) • Logic & Problem
+                Solving</span
+              >
+            </div>
+
+            <a
+              href="https://www.dicoding.com/certificates/10P843VV8ZQK"
+              target="_blank"
+              class="verify-btn"
+            >
+              VERIFY AUTHENTICITY
+              <svg viewBox="0 0 24 24" class="btn-arrow">
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="square"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="cert-panel">
+          <div class="cert-text-panel">
+            <h3 class="cert-label">ARCHIVE // BOOTCAMP</h3>
+            <h1 class="cert-title">DICODING<br />GRADUATE</h1>
+            <p class="cert-desc">
+              Eksplorasi fundamental dalam membangun struktur dan antarmuka web
+              yang interaktif. Sertifikasi ini memperkuat pemahaman saya terkait
+              HTML, styling dengan CSS, hingga manipulasi DOM dasar menggunakan
+              JavaScript. Fondasi esensial untuk merancang tampilan front-end
+              yang responsif.
+            </p>
+          </div>
+
+          <div class="cert-frame-wrapper">
+            <img
+              src="sertifikat-web.webp"
+              alt="Sertifikat DICODING"
+              class="frame-asset"
+            />
+          </div>
+
+          <div class="cert-meta-panel">
+            <div class="meta-item">
+              <span class="meta-label">// CREDENTIAL ID</span>
+              <span class="meta-value">0LZ06RE0QZ65</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ISSUED BY</span>
+              <span class="meta-value">Dicoding Indonesia</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ACQUIRED SKILLS</span>
+              <span class="meta-value"
+                >HTML/CSS • JavaScript • Front-End Fundamentals</span
+              >
+            </div>
+
+            <a
+              href="https://www.dicoding.com/certificates/0LZ06RE0QZ65"
+              target="_blank"
+              class="verify-btn"
+            >
+              VERIFY AUTHENTICITY
+              <svg viewBox="0 0 24 24" class="btn-arrow">
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="square"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="cert-panel">
+          <div class="cert-text-panel">
+            <h3 class="cert-label">ARCHIVE // BOOTCAMP</h3>
+            <h1 class="cert-title">DICODING<br />GRADUATE</h1>
+            <p class="cert-desc">
+              Eksplorasi fundamental dalam manajemen keuangan yang profesional
+              dan terstruktur. Sertifikasi ini memperkuat pemahaman analitis
+              saya mengenai risiko investasi dan perencanaan finansial.
+              Keterampilan pendukung yang memperluas perspektif saya dalam
+              membangun produk teknologi yang bernilai ekonomis.
+            </p>
+          </div>
+
+          <div class="cert-frame-wrapper">
+            <img
+              src="sertifikat-financial2.webp"
+              alt="Sertifikat DICODING"
+              class="frame-asset"
+            />
+          </div>
+
+          <div class="cert-meta-panel">
+            <div class="meta-item">
+              <span class="meta-label">// CREDENTIAL ID</span>
+              <span class="meta-value">RVZKGE05QXD5</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ISSUED BY</span>
+              <span class="meta-value">Dicoding Indonesia</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ACQUIRED SKILLS</span>
+              <span class="meta-value"
+                >Financial Planning • Risk Assessment • Strategic Thinking</span
+              >
+            </div>
+
+            <a
+              href="https://www.dicoding.com/certificates/RVZKGE05QXD5"
+              target="_blank"
+              class="verify-btn"
+            >
+              VERIFY AUTHENTICITY
+              <svg viewBox="0 0 24 24" class="btn-arrow">
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="square"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="cert-panel">
+          <div class="cert-text-panel">
+            <h3 class="cert-label">ARCHIVE // BOOTCAMP</h3>
+            <h1 class="cert-title">DICODING<br />GRADUATE</h1>
+            <p class="cert-desc">
+              Eksplorasi awal mengenai literasi keuangan dan pengelolaan aset
+              dasar. Sertifikasi ini melengkapi pemahaman komprehensif saya
+              mengenai metrik finansial, memberikan nilai tambah bagi saya saat
+              merancang solusi teknologi yang bersinggungan dengan efisiensi
+              biaya.
+            </p>
+          </div>
+
+          <div class="cert-frame-wrapper">
+            <img
+              src="sertifikat-financial.webp"
+              alt="Sertifikat DICODING"
+              class="frame-asset"
+            />
+          </div>
+
+          <div class="cert-meta-panel">
+            <div class="meta-item">
+              <span class="meta-label">// CREDENTIAL ID</span>
+              <span class="meta-value">RVZKG0Q3QXD5</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ISSUED BY</span>
+              <span class="meta-value">Dicoding Indonesia</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">// ACQUIRED SKILLS</span>
+              <span class="meta-value"
+                >Basic Finance • Resource Management</span
+              >
+            </div>
+
+            <a
+              href="https://www.dicoding.com/certificates/RVZKG0Q3QXD5"
+              target="_blank"
+              class="verify-btn"
+            >
+              VERIFY AUTHENTICITY
+              <svg viewBox="0 0 24 24" class="btn-arrow">
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="square"
+                />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>

@@ -434,13 +434,13 @@ body {
 
 .vangogh-text-container {
   width: 100%;
-  min-height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
   padding-left: calc(2vw + 150px + 40px);
-  padding-right: 5vw;
+  padding-right: 15vw;
   padding-bottom: 5vh;
 }
 
@@ -872,17 +872,41 @@ p {
 }
 
 /* =========================================
-   ARSITEKTUR CERTIFICATE VAULT
+   ARSITEKTUR CERTIFICATE VAULT (HORIZONTAL SCROLL)
    ========================================= */
+/* 2. DINDING MERAH DITANAM SEBAGAI KANVAS UTAMA STATIS */
 #certificate-vault {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
 
-  /* Panggilan ke dinding merah Anda */
+  /* Injeksi gambar dinding merah di sini */
   background-image: url("background-merah.webp");
+
+  /* KOREKSI RASIO: Gunakan 'cover' alih-alih '100% 100%' 
+     agar perspektif lantai kayu dan lampu tidak gepeng tertarik resolusi layar */
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.cert-track {
+  display: flex;
+  width: fit-content; /* Memanjang otomatis mengikuti jumlah sertifikat */
+  height: 100%;
+  will-change: transform; /* Optimasi GPU untuk animasi horizontal */
+}
+
+/* 1. PANEL SERTIFIKAT DIBUAT TEMBUS PANDANG */
+.cert-panel {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+
+  /* FAKTA: Background dihapus dari sini agar tidak ada pengulangan gambar yang bertabrakan */
+  background-color: transparent;
 
   display: flex;
   align-items: center;
@@ -890,8 +914,9 @@ p {
   gap: 8vw;
   padding: 10vh 8vw;
   position: relative;
-  z-index: 10;
 }
+
+/* Sisanya biarkan sama seperti CSS Anda sebelumnya (.cert-text-panel, dll) */
 
 /* KONTROL TIPOGRAFI DINDING */
 .cert-text-panel {
@@ -1023,16 +1048,57 @@ p {
   transform: translateX(5px); /* Panah melesat ke kanan saat disorot */
 }
 
-/* PENYESUAIAN LEBAR KOLOM TENGAH */
-/* Cari .cert-frame-wrapper yang sudah ada, dan pastikan width-nya sekitar 45% 
-   agar memberi ruang untuk panel kiri (30%) dan kanan (20%) */
-/* .cert-frame-wrapper {
-  width: 45%;
-  max-width: 1400px;
+/* ARSITEKTUR GALERI PROYEK (Menggantikan inline-style) */
+.project-gallery-wrapper {
+  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-} */
+  flex-direction: column;
+  align-items: flex-end;
+  padding-left: calc(2vw + 150px + 40px);
+  padding-right: 2vw;
+  padding-bottom: 20vh;
+  gap: 40px;
+}
+
+.project-gallery-img {
+  width: 100%;
+  border-radius: 0px 0 0 0px;
+  box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.7);
+}
+.skip-navigation-wrapper {
+  position: absolute;
+  bottom: 8vh;
+  right: 5vw;
+  z-index: 50; /* Pastikan berada di atas canvas */
+}
+
+/* ARSITEKTUR TOMBOL SKIP KONTEKSTUAL */
+.skip-btn-container {
+  position: absolute; /* FAKTA: Wajib absolute agar hanya hidup di dalam section-nya */
+
+  /* ==========================================================
+     KONTROL KOORDINAT (Silakan ubah angka ini untuk presisi)
+     ========================================================== */
+  bottom: 4vh; /* Makin KECIL angkanya (misal 1vh atau 10px), makin mepet ke LANTAI BAWAH */
+  right: 3vw; /* Makin KECIL angkanya, makin mepet ke DINDING KANAN */
+
+  z-index: 100; /* Memastikan selalu di atas kanvas dan gambar */
+}
+
+.skip-btn {
+  background-color: rgba(5, 5, 5, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 20px 25px; /* Diperkecil sedikit agar tidak makan tempat */
+  font-size: 0.75rem; /* Teks sedikit diperkecil */
+  border-radius: 4px; /* Opsi: Tambahkan sudut melengkung tipis jika ingin lebih modern */
+}
+
+/* Sembunyikan di HP jika tidak diperlukan agar tidak merusak layar kecil */
+@media (max-width: 768px) {
+  .skip-btn-container {
+    display: none;
+  }
+}
 
 /* OPTIMASI MOBILE ABSOLUT */
 @media (max-width: 768px) {

@@ -13,108 +13,85 @@ gsap.ticker.lagSmoothing(0);
 gsap.registerPlugin(ScrollTrigger);
 
 // ==========================================
-// 1. SETUP VANGOGH SEQUENCE (Bantu-In)
+// KELAS ABSTRAKSI CANVAS RENDERER
 // ==========================================
-function setupVangoghSequence() {
-  const canvas = document.getElementById("vangogh-canvas");
-  if (!canvas) return;
-  const context = canvas.getContext("2d");
-  const frameCount = 240;
-  const images = [];
-  const canvasObj = { frame: 0 };
-  let isLoaded = false;
+class CanvasSequence {
+  constructor(canvasId, imagePathCallback, frameCount) {
+    this.canvas = document.getElementById(canvasId);
+    this.context = this.canvas ? this.canvas.getContext("2d") : null;
+    this.frameCount = frameCount;
+    this.images = [];
+    this.canvasObj = { frame: 0 };
+    this.imagePathCallback = imagePathCallback;
+    this.isLoaded = false;
 
-  function render() {
-    const targetFrame = Math.round(canvasObj.frame);
+    if (this.canvas) {
+      this.render = this.render.bind(this);
+      window.addEventListener("resize", this.render);
+    }
+  }
+
+  render() {
+    if (!this.canvas) return;
+    const targetFrame = Math.round(this.canvasObj.frame);
     let bestFrame = targetFrame;
     while (
       bestFrame >= 0 &&
-      (!images[bestFrame] || !images[bestFrame].complete)
+      (!this.images[bestFrame] || !this.images[bestFrame].complete)
     ) {
       bestFrame--;
     }
     if (bestFrame < 0) return;
 
-    const img = images[bestFrame];
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const img = this.images[bestFrame];
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
     const ratio = Math.max(
-      canvas.width / img.width,
-      canvas.height / img.height,
+      this.canvas.width / img.width,
+      this.canvas.height / img.height,
     );
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.drawImage(
+
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.context.drawImage(
       img,
       0,
       0,
       img.width,
       img.height,
-      (canvas.width - img.width * ratio) / 2,
-      (canvas.height - img.height * ratio) / 2,
+      (this.canvas.width - img.width * ratio) / 2,
+      (this.canvas.height - img.height * ratio) / 2,
       img.width * ratio,
       img.height * ratio,
     );
   }
 
-  window.addEventListener("resize", render);
+  loadFirstFrame() {
+    if (!this.canvas) return;
+    const firstImg = new Image();
+    firstImg.src = this.imagePathCallback(0);
+    firstImg.onload = () => {
+      this.images[0] = firstImg;
+      this.render();
+    };
+  }
 
-  const firstImg = new Image();
-  firstImg.src = `./vangogh-compressed/frame_001.webp`;
-  firstImg.onload = () => {
-    images[0] = firstImg;
-    render();
-  };
-
-  // PRE-LOADER (HEAD START): Muat diam-diam sebelum user sampai
-  ScrollTrigger.create({
-    trigger: "#vangogh-pin-target",
-    start: "top 200%", // Trigger saat jaraknya masih 1 layar di bawah
-    onEnter: () => {
-      if (isLoaded) return;
-      isLoaded = true;
-      let f = 1;
-      const batchSize = 5;
-      function loadNext() {
-        if (f >= frameCount) return;
-        const idx = f++;
-        const img = new Image();
-        img.src = `./vangogh-compressed/frame_${(idx + 1).toString().padStart(3, "0")}.webp`;
-        img.onload = () => {
-          images[idx] = img;
-          loadNext();
-        };
-        img.onerror = () => loadNext();
-      }
-      for (let i = 0; i < batchSize; i++) loadNext();
-    },
-  });
-
-  let tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#vangogh-pin-target",
-      start: "top top",
-      end: "+=6000",
-      pin: true,
-      scrub: true,
-    },
-  });
-
-  tl.to(
-    canvasObj,
-    {
-      frame: frameCount - 1,
-      snap: "frame",
-      ease: "none",
-      duration: 2,
-      onUpdate: render,
-    },
-    0,
-  );
-  tl.to(
-    "#vangogh-content-wrapper",
-    { yPercent: -100, ease: "none", duration: 2 },
-    0,
-  );
+  preloadImages(batchSize = 5) {
+    if (this.isLoaded || !this.canvas) return;
+    this.isLoaded = true;
+    let f = 1;
+    const loadNext = () => {
+      if (f >= this.frameCount) return;
+      const idx = f++;
+      const img = new Image();
+      img.src = this.imagePathCallback(idx);
+      img.onload = () => {
+        this.images[idx] = img;
+        loadNext();
+      };
+      img.onerror = () => loadNext();
+    };
+    for (let i = 0; i < batchSize; i++) loadNext();
+  }
 }
 
 // ==========================================
@@ -206,83 +183,24 @@ function setupCanvasScrubbing(canvasId, sectionId, imagePathFunc, frameCount) {
   });
 }
 
-// ==========================================
-// 4. SETUP DUALITY SCRAPBOOK
-// ==========================================
 function setupDualityScrapbook() {
-  const canvas = document.getElementById("duality-canvas");
-  if (!canvas) return;
-  const context = canvas.getContext("2d");
-  const frameCount = 150;
-  const images = [];
-  const canvasObj = { frame: 0 };
-  let isLoaded = false;
+  const dualityCanvas = new CanvasSequence(
+    "duality-canvas",
+    (i) =>
+      `./duality-compressed/frame_${(i + 1).toString().padStart(3, "0")}.webp`,
+    150,
+  );
+  if (!dualityCanvas.canvas) return;
 
-  function render() {
-    const targetFrame = Math.round(canvasObj.frame);
-    let bestFrame = targetFrame;
-    while (
-      bestFrame >= 0 &&
-      (!images[bestFrame] || !images[bestFrame].complete)
-    ) {
-      bestFrame--;
-    }
-    if (bestFrame < 0) return;
-
-    const img = images[bestFrame];
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const ratio = Math.max(
-      canvas.width / img.width,
-      canvas.height / img.height,
-    );
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.drawImage(
-      img,
-      0,
-      0,
-      img.width,
-      img.height,
-      (canvas.width - img.width * ratio) / 2,
-      (canvas.height - img.height * ratio) / 2,
-      img.width * ratio,
-      img.height * ratio,
-    );
-  }
-
-  window.addEventListener("resize", render);
-  const scrapbookPanel = document.getElementById("scrapbook-panel");
-
-  const firstImg = new Image();
-  firstImg.src = `./duality-compressed/frame_001.webp`;
-  firstImg.onload = () => {
-    images[0] = firstImg;
-    render();
-  };
+  dualityCanvas.loadFirstFrame();
 
   ScrollTrigger.create({
     trigger: "#duality-pin-target",
     start: "top 200%",
-    onEnter: () => {
-      if (isLoaded) return;
-      isLoaded = true;
-      let f = 1;
-      const batch = 4;
-      function loadDuality() {
-        if (f >= frameCount) return;
-        const curr = f++;
-        const img = new Image();
-        img.src = `./duality-compressed/frame_${(curr + 1).toString().padStart(3, "0")}.webp`;
-        img.onload = () => {
-          images[curr] = img;
-          loadDuality();
-        };
-        img.onerror = () => loadDuality();
-      }
-      for (let i = 0; i < batch; i++) loadDuality();
-    },
+    onEnter: () => dualityCanvas.preloadImages(4),
   });
 
+  const scrapbookPanel = document.getElementById("scrapbook-panel");
   let tl = gsap.timeline({
     scrollTrigger: {
       trigger: "#duality-pin-target",
@@ -294,13 +212,13 @@ function setupDualityScrapbook() {
   });
 
   tl.to(
-    canvasObj,
+    dualityCanvas.canvasObj,
     {
-      frame: frameCount - 1,
+      frame: 149,
       snap: "frame",
       ease: "none",
       duration: 2,
-      onUpdate: render,
+      onUpdate: dualityCanvas.render,
     },
     0,
   );
@@ -393,75 +311,22 @@ function bukaTab(elemenTombol, namaTab) {
 // );
 
 function setupMuseumGrandOpening() {
-  const canvas = document.getElementById("museum-canvas");
-  if (!canvas) return;
-  const context = canvas.getContext("2d");
-  const frameCount = 240;
-  const images = [];
-  const canvasObj = { frame: 0 };
-  let isLoaded = false;
+  // Inisiasi dari class CanvasSequence yang baru
+  const museumCanvas = new CanvasSequence(
+    "museum-canvas",
+    (i) =>
+      `./museum-compressed/frame_${(i + 1).toString().padStart(3, "0")}.webp`,
+    240,
+  );
+  if (!museumCanvas.canvas) return;
 
-  function render() {
-    const targetFrame = Math.round(canvasObj.frame);
-    let bestFrame = targetFrame;
-    while (
-      bestFrame >= 0 &&
-      (!images[bestFrame] || !images[bestFrame].complete)
-    ) {
-      bestFrame--;
-    }
-    if (bestFrame < 0) return;
+  museumCanvas.loadFirstFrame();
 
-    const img = images[bestFrame];
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const ratio = Math.max(
-      canvas.width / img.width,
-      canvas.height / img.height,
-    );
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.drawImage(
-      img,
-      0,
-      0,
-      img.width,
-      img.height,
-      (canvas.width - img.width * ratio) / 2,
-      (canvas.height - img.height * ratio) / 2,
-      img.width * ratio,
-      img.height * ratio,
-    );
-  }
-
-  window.addEventListener("resize", render);
-
-  const firstImg = new Image();
-  firstImg.src = `./museum-compressed/frame_001.webp`;
-  firstImg.onload = () => {
-    images[0] = firstImg;
-    render();
-  };
-
+  // Pre-loader pintar
   ScrollTrigger.create({
     trigger: "#museum-section",
     start: "top 200%",
-    onEnter: () => {
-      if (isLoaded) return;
-      isLoaded = true;
-      let f = 1;
-      function loadNext() {
-        if (f >= frameCount) return;
-        const index = f++;
-        const img = new Image();
-        img.src = `./museum-compressed/frame_${(index + 1).toString().padStart(3, "0")}.webp`;
-        img.onload = () => {
-          images[index] = img;
-          loadNext();
-        };
-        img.onerror = () => loadNext();
-      }
-      for (let i = 0; i < 5; i++) loadNext();
-    },
+    onEnter: () => museumCanvas.preloadImages(5),
   });
 
   // ------------------------------------------
@@ -471,7 +336,7 @@ function setupMuseumGrandOpening() {
     scrollTrigger: {
       trigger: "#museum-section",
       start: "top top",
-      end: "+=60000", // FAKTA: Durasi scroll sangat panjang untuk menampung banyak gambar
+      end: "+=40000", // Durasi scroll ekstrem tetap dipertahankan
       pin: true,
       scrub: 1,
     },
@@ -494,50 +359,92 @@ function setupMuseumGrandOpening() {
   const totalPanels = panels.length;
 
   if (totalPanels > 0) {
-    const frameStep = Math.floor((frameCount - 1) / (totalPanels + 1));
+    const frameStep = Math.floor((240 - 1) / (totalPanels + 1));
     let currentFrameTarget = 0;
 
     panels.forEach((panel) => {
       currentFrameTarget += frameStep;
 
       // FASE A: Museum berjalan ke titik perhentian, lalu DIAM TOTAL
-      tl.to(canvasObj, {
+      tl.to(museumCanvas.canvasObj, {
         frame: currentFrameTarget,
         snap: "frame",
         ease: "none",
         duration: 4,
-        onUpdate: render,
+        onUpdate: museumCanvas.render, // Terikat pada method render di class
       });
 
       // FASE B: Animasi Kloningan Bantu-In (Ditarik lurus ke atas tanpa henti)
       tl.to(panel, {
-        // Matematika mutlak: Menarik panel dari bawah lantai sampai melewati atap layar
         y: () => -(window.innerHeight + panel.offsetHeight),
         ease: "none",
-        duration: 50, // Durasi panjang agar pengguna bisa baca sambil scroll santai
+        duration: 50,
       });
     });
 
     // FASE C: Setelah semua proyek habis, museum sisa jalan ke ujung lorong
-    tl.to(canvasObj, {
-      frame: frameCount - 1,
+    tl.to(museumCanvas.canvasObj, {
+      frame: 240 - 1,
       snap: "frame",
       ease: "none",
       duration: 4,
-      onUpdate: render,
+      onUpdate: museumCanvas.render,
     });
   } else {
-    tl.to(canvasObj, {
-      frame: frameCount - 1,
+    tl.to(museumCanvas.canvasObj, {
+      frame: 240 - 1,
       snap: "frame",
       ease: "none",
       duration: 10,
-      onUpdate: render,
+      onUpdate: museumCanvas.render,
     });
   }
 
   // 3. Buffer Mutlak
   tl.to({}, { duration: 2 });
+}
+// ==========================================
+// SETUP HORIZONTAL SCROLL GALLERY (Sertifikat dengan Efek "Nyangkut/Pause")
+// ==========================================
+function setupCertificateGallery() {
+  const track = document.querySelector(".cert-track");
+  const panels = gsap.utils.toArray(".cert-panel");
+
+  // Matikan fungsi jika sertifikat kurang dari 2
+  if (!track || panels.length < 2) return;
+
+  // FAKTA MATEMATIKA: Agar durasi scroll menyesuaikan banyaknya sertifikat
+  // Kita kalikan lebar 1 layar penuh dengan jumlah panel agar tidak terlalu cepat
+  const totalScrollDistance = panels.length * window.innerWidth;
+
+  let tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#certificate-vault",
+      pin: true,
+      scrub: 1, // Efek inersia/karet saat berhenti
+      end: () => "+=" + totalScrollDistance,
+    },
+  });
+
+  // Looping ke setiap panel sertifikat
+  panels.forEach((panel, i) => {
+    // 1. Logika Pergerakan: Jika bukan panel pertama, tarik layar ke kiri
+    if (i > 0) {
+      tl.to(track, {
+        x: () => -(window.innerWidth * i),
+        // FAKTA UX: Menggunakan "power1.inOut" alih-alih "none"
+        // agar geserannya seperti mobil (ada gas awal yang halus, dan rem halus saat mau berhenti)
+        ease: "power1.inOut",
+        duration: 1,
+      });
+    }
+
+    // 2. LOGIKA "NYANGKUT" (PAUSE)
+    // Menyisipkan durasi kosong di mana elemen diam absolut meski roda scroll diputar.
+    // Ubah angka 0.4 menjadi lebih besar (misal 0.8) jika ingin nyangkutnya lebih lama,
+    // atau perkecil (misal 0.2) jika ingin nyangkutnya sebentar saja.
+    tl.to({}, { duration: 0.4 });
+  });
 }
 
 // JANGAN LUPA PANGGIL FUNGSINYA
@@ -549,8 +456,8 @@ setupDualityScrapbook();
 
 // Panggil fungsinya
 setupMuseumGrandOpening();
-setupVangoghSequence();
 
+setupCertificateGallery();
 // ==========================================
 // KONTROL KOORDINAT CIRCULAR CURSOR
 // ==========================================
