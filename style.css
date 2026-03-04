@@ -944,6 +944,82 @@ p {
   color: #ffffff;
   letter-spacing: -2px;
 }
+/* =========================================
+   ARSITEKTUR RENAISSANCE PRELOADER
+   ========================================= */
+#brutalist-preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fffbef; /* Hitam pekat menutupi web */
+  z-index: 999999; /* Hierarki mutlak paling atas */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preloader-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.loader {
+  width: 12em;
+  height: 12em;
+}
+
+.loader path {
+  /* FAKTA: Warna garis diubah menjadi PUTIH agar terlihat di layar hitam */
+  stroke: #e40a3e;
+  stroke-width: 0.6px;
+
+  /* Gunakan keyframes asli milik Anda */
+  animation:
+    dashArray 4s ease-in-out infinite,
+    dashOffset 4s linear infinite;
+}
+
+@keyframes dashArray {
+  0% {
+    stroke-dasharray: 0 1 359 0;
+  }
+  50% {
+    stroke-dasharray: 0 359 1 0;
+  }
+  100% {
+    stroke-dasharray: 359 1 0 0;
+  }
+}
+
+@keyframes dashOffset {
+  0% {
+    stroke-dashoffset: 365;
+  }
+  100% {
+    stroke-dashoffset: 5;
+  }
+}
+
+.loading-counter {
+  font-family: "Space Mono", monospace;
+  color: #050505; /* Warna merah tajam Anda */
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.percent {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+  margin-left: 5px;
+  color: rgba(255, 255, 255, 0.5);
+}
 
 /* =========================================
    ARSITEKTUR BAB 06: KONTAK GRID (Gambar LDR)

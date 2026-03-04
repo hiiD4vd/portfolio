@@ -13,6 +13,58 @@ gsap.ticker.lagSmoothing(0);
 gsap.registerPlugin(ScrollTrigger);
 
 // ==========================================
+// RENAISSANCE PRELOADER LOGIC
+// ==========================================
+function setupPreloader() {
+  // 1. Hentikan fungsi scroll sementara
+  lenis.stop();
+  window.scrollTo(0, 0);
+
+  const preloader = document.getElementById("brutalist-preloader");
+  const progressText = document.getElementById("progress-text");
+
+  if (!preloader) return;
+
+  let progress = 0;
+  const speed = 30; // Kecepatan loading (makin kecil makin cepat)
+
+  function updateProgress() {
+    progress += Math.floor(Math.random() * 5) + 1; // Angka naik acak agar natural
+
+    if (progress > 100) progress = 100;
+
+    // Format angka 2 digit (01, 09, 99, 100)
+    progressText.innerText = progress.toString().padStart(2, "0");
+
+    if (progress < 100) {
+      setTimeout(updateProgress, speed);
+    } else {
+      // 2. Tahan di 100% sebentar agar dramatis, lalu angkat tirai
+      setTimeout(revealWebsite, 600);
+    }
+  }
+
+  function revealWebsite() {
+    // Menggunakan GSAP untuk menarik layar hitam ke atas
+    gsap.to(preloader, {
+      yPercent: -100,
+      ease: "power4.inOut",
+      duration: 1.5,
+      onComplete: () => {
+        preloader.style.display = "none"; // Buang dari DOM setelah selesai
+
+        // 3. Buka Kunci Lenis: Pengguna sekarang bisa scroll ke bawah
+        lenis.start();
+      },
+    });
+  }
+
+  // Mulai simulasi
+  updateProgress();
+}
+
+setupPreloader();
+// ==========================================
 // KELAS ABSTRAKSI CANVAS RENDERER
 // ==========================================
 class CanvasSequence {
