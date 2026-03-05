@@ -939,10 +939,24 @@ p {
 
 .giant-heading {
   font-family: "Cinzel", serif;
-  font-size: clamp(3rem, 5vw, 5.5rem);
-  line-height: 1;
+
+  /* FAKTA: Ukuran diperkecil dari 5vw ke 3.5vw, dan batas maksimal diturunkan ke 4rem 
+     agar kata panjang "COMPATIBILITY" tidak tumpah ke luar layar */
+  font-size: clamp(2rem, 3.5vw, 4rem);
+
+  line-height: 1.1;
   color: #ffffff;
-  letter-spacing: -2px;
+  margin-bottom: 2rem;
+
+  /* Merapatkan jarak huruf sedikit agar kata panjang muat dalam satu baris */
+  letter-spacing: -1px;
+
+  text-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+
+  /* FAKTA UX: Perlindungan darurat. Jika layar di-resize sangat ekstrim, 
+     kata akan dipaksa turun baris ketimbang merusak layout */
+  word-wrap: break-word;
+  hyphens: auto;
 }
 /* =========================================
    ARSITEKTUR RENAISSANCE PRELOADER
@@ -1337,6 +1351,7 @@ p {
   font-size: 1rem;
   line-height: 1.7;
   max-width: 320px;
+  font-weight: 500;
 }
 
 /* KONTROL PRESISI BINGKAI TUNGGAL */
